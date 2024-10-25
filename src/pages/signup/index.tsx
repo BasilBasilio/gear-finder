@@ -1,9 +1,9 @@
-import UserLogin from '../../components/UserLogin';
+import UserSignUp from '../../components/UserSignIn';
 
 const Login: React.FC = () => {
   return (
     <>
-      <UserLogin />
+      <UserSignUp />
     </>
   );
 };

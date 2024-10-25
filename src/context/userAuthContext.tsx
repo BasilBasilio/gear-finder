@@ -6,24 +6,25 @@ interface iUserAuthProviderProps {
   children: React.ReactNode;
 }
 
-export const UserAuthContext = createContext<User | null>(null);
+export const UserAuthContext = createContext<User | null | undefined>(
+  undefined,
+);
 
 export const UserAuthProvider: React.FC<iUserAuthProviderProps> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
-      if (user) {
-        console.log('The logged in user state is: ', user);
-        setUser(user);
+      if (!user) {
+        setUser(null);
+        return;
       }
+      setUser(user);
     });
-    return () => {
-      unsubscribe();
-    };
-  });
+    return unsubscribe;
+  }, []);
 
   return (
     <UserAuthContext.Provider value={user}>{children}</UserAuthContext.Provider>

@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserSignIn } from '../../types';
+import { UserSignIn } from '../../interfaces';
 import { googleSignIn, signUp } from '../../auth';
 
 const initialValue: UserSignIn = {
   email: '',
   password: '',
+  confirmPassword: '',
 };
 
 const UserSignUp: React.FC = () => {
@@ -37,7 +38,9 @@ const UserSignUp: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-700">Login</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-700">
+          Register
+        </h2>
         <form className="mt-4" onSubmit={handleSubmit}>
           <div>
             <label className="block text-sm">Email</label>
@@ -65,11 +68,24 @@ const UserSignUp: React.FC = () => {
               required
             />
           </div>
+          <div className="mt-4">
+            <label className="block text-sm">Confirm password</label>
+            <input
+              type="password"
+              className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
+              placeholder="Confirm your password"
+              value={userInfo.confirmPassword}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUserInfo({ ...userInfo, confirmPassword: e.target.value })
+              }
+              required
+            />
+          </div>
           <button
             type="submit"
             className="w-full px-4 py-2 mt-6 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
           >
-            Log In
+            Register
           </button>
         </form>
         <div className="mt-6">
@@ -77,7 +93,7 @@ const UserSignUp: React.FC = () => {
             onClick={handleGoogleSignIn}
             className="flex items-center justify-center w-full px-4 py-2 text-sm font-semibold text-gray-700 bg-white border rounded-lg hover:bg-gray-100 focus:outline-none"
           >
-            Sign in with Google
+            Sign In with Google
           </button>
         </div>
       </div>
