@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserSignIn } from '../../interfaces';
+import { UserSignIn } from '../interfaces';
 import { googleSignIn, signUp } from '../../auth';
 
 const initialValue: UserSignIn = {
@@ -14,19 +14,16 @@ const UserSignUp: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       await signUp(userInfo.email, userInfo.password);
       navigate('/');
-      console.log('The user info is: ', userInfo);
     } catch (error) {
       console.log('Error', error);
     }
   };
 
-  const handleGoogleSignIn = async (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
+  const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
       navigate('/');
@@ -43,9 +40,12 @@ const UserSignUp: React.FC = () => {
         </h2>
         <form className="mt-4" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm">Email</label>
+            <label htmlFor="email" className="block text-sm">
+              Email
+            </label>
             <input
-              type="email"
+              id="id"
+              type="text"
               className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
               placeholder="Enter your email"
               value={userInfo.email}
@@ -56,9 +56,12 @@ const UserSignUp: React.FC = () => {
             />
           </div>
           <div className="mt-4">
-            <label className="block text-sm">Password</label>
+            <label htmlFor="password" className="block text-sm">
+              Password
+            </label>
             <input
-              type="password"
+              id="password"
+              type="text"
               className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
               placeholder="Enter your password"
               value={userInfo.password}
@@ -69,9 +72,12 @@ const UserSignUp: React.FC = () => {
             />
           </div>
           <div className="mt-4">
-            <label className="block text-sm">Confirm password</label>
+            <label htmlFor="confirmpassword" className="block text-sm">
+              Confirm password
+            </label>
             <input
-              type="password"
+              id="confirmpassword"
+              type="text"
               className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
               placeholder="Confirm your password"
               value={userInfo.confirmPassword}

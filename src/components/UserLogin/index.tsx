@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserLogIn } from '../../interfaces';
+import { UserLogIn } from '../interfaces';
 import { googleSignIn, logIn } from '../../auth';
 
 const initialValue: UserLogIn = {
@@ -12,19 +12,16 @@ const UserLogin: React.FC = () => {
   const [userLogInfo, setUserLogInfo] = useState<UserLogIn>(initialValue);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
       await logIn(userLogInfo.email, userLogInfo.password);
       navigate('/');
-      console.log('User info: ', userLogInfo);
     } catch (error) {
       console.log('Error', error);
     }
   };
 
-  const handleGoogleSignIn = async (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault();
+  const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
       navigate('/');
@@ -46,11 +43,15 @@ const UserLogin: React.FC = () => {
           </h2>
           <form className="mt-8" onSubmit={handleSubmit}>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Email
               </label>
               <input
-                type="email"
+                id="email"
+                type="text"
                 className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                 placeholder="Enter your email"
                 value={userLogInfo.email}
@@ -61,11 +62,15 @@ const UserLogin: React.FC = () => {
               />
             </div>
             <div className="mt-4">
-              <label className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
                 Password
               </label>
               <input
-                type="password"
+                id="password"
+                type="text"
                 className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                 placeholder="Enter your password"
                 value={userLogInfo.password}
