@@ -6,34 +6,36 @@ import UserProfile from '../pages/user/index.tsx';
 import ProtectedRoutes from '../components/ProtectedRoutes/index.tsx';
 import UserSignUp from '../components/UserSignIn/index.tsx';
 
+const baseUrl = import.meta.env.PROD ? '/gear-finder/' : '';
+
 export const router = createBrowserRouter([
   {
     element: <ProtectedRoutes />,
     children: [
       {
-        path: '/user',
+        path: `${baseUrl}user`,
         element: <UserProfile />,
         errorElement: <Error />,
       },
     ],
   },
   {
-    path: '/',
+    path: `${baseUrl}`,
     element: <Home />,
     errorElement: <Error />,
   },
   {
-    path: '/register',
+    path: `${baseUrl}register`,
     element: <UserSignUp />,
     errorElement: <Error />,
   },
   {
-    path: '/login',
+    path: `${baseUrl}login`,
     element: <Login />,
     errorElement: <Error />,
   },
   {
-    path: '/*',
+    path: `${baseUrl}*`,
     element: <Error />,
     errorElement: <Error />,
   },
