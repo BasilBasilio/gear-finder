@@ -13,6 +13,7 @@ dist-ssr
 *.local
 tsconfig.app.tsbuildinfo
 tsconfig.node.tsbuildinfo
+.env
 
 # Editor directories and files
 .vscode/*
@@ -24,3 +25,6 @@ tsconfig.node.tsbuildinfo
 *.njsproj
 *.sln
 *.sw?
+
+# Local Netlify folder
+.netlify

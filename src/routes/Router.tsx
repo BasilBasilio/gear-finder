@@ -5,7 +5,6 @@ import Login from '../pages/login/index.tsx';
 import UserProfile from '../pages/user/index.tsx';
 import ProtectedRoutes from '../components/ProtectedRoutes/index.tsx';
 import UserSignUp from '../components/UserSignIn/index.tsx';
-
 export const router = createBrowserRouter([
   {
     element: <ProtectedRoutes />,
