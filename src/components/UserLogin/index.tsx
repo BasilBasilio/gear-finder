@@ -12,7 +12,8 @@ const UserLogin: React.FC = () => {
   const [userLogInfo, setUserLogInfo] = useState<UserLogIn>(initialValue);
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       await logIn(userLogInfo.email, userLogInfo.password);
       navigate('/');
@@ -70,7 +71,7 @@ const UserLogin: React.FC = () => {
               </label>
               <input
                 id="password"
-                type="text"
+                type="password"
                 className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                 placeholder="Enter your password"
                 value={userLogInfo.password}

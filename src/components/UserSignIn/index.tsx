@@ -14,7 +14,8 @@ const UserSignUp: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       await signUp(userInfo.email, userInfo.password);
       navigate('/');
@@ -61,7 +62,7 @@ const UserSignUp: React.FC = () => {
             </label>
             <input
               id="password"
-              type="text"
+              type="password"
               className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
               placeholder="Enter your password"
               value={userInfo.password}
@@ -77,7 +78,7 @@ const UserSignUp: React.FC = () => {
             </label>
             <input
               id="confirmpassword"
-              type="text"
+              type="password"
               className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
               placeholder="Confirm your password"
               value={userInfo.confirmPassword}
