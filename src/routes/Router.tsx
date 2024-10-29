@@ -6,6 +6,7 @@ import Login from '../pages/login/index.tsx';
 import UserProfile from '../pages/user/index.tsx';
 import ProtectedRoutes from '../components/ProtectedRoutes/index.tsx';
 import UserSignUp from '../components/UserSignIn/index.tsx';
+import NewInsertion from '../pages/newinsertion/index.tsx';
 
 export const router = createBrowserRouter([
   {
@@ -30,11 +31,17 @@ export const router = createBrowserRouter([
             element: <UserProfile />,
             errorElement: <Error />,
           },
+          {
+            path: '/new',
+            element: <NewInsertion />,
+            errorElement: <Error />,
+          },
         ],
       },
       {
         path: '/',
         element: <Home />,
+        errorElement: <Error />,
       },
       {
         path: '/*',
