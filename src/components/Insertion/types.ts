@@ -7,5 +7,4 @@ export interface InsertionData {
   location: string;
   deliveryMethod: string;
   notes: string;
-  images?: FileList;
 }
