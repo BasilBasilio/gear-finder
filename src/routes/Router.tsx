@@ -2,11 +2,11 @@ import { createBrowserRouter } from 'react-router-dom';
 import Layout from '../components/Layout/index.tsx';
 import Home from '../pages/home/index.tsx';
 import Error from '../pages/error/index.tsx';
-import Login from '../pages/login/index.tsx';
 import UserProfile from '../pages/user/index.tsx';
 import ProtectedRoutes from '../components/ProtectedRoutes/index.tsx';
 import UserSignUp from '../components/UserSignIn/index.tsx';
-import NewInsertion from '../pages/newinsertion/index.tsx';
+import Insertion from '../components/Insertion/index.tsx';
+import Login from '../pages/login/index.tsx';
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/new',
-            element: <NewInsertion />,
+            element: <Insertion />,
             errorElement: <Error />,
           },
         ],

@@ -1,59 +1,28 @@
-import { useState } from 'react';
-import { getDatabase, ref, set, push } from 'firebase/database';
-import app from '../../firebaseConfig';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { InsertionData } from '../interfaces';
 
 const Insertion: React.FC = () => {
-  const [insertionData, setInsertionData] = useState({
-    instrumentType: '',
-    model: '',
-    description: '',
-    rentalPrice: '',
-    condition: '',
-    location: '',
-    deliveryMethod: '',
-    notes: '',
-    images: null as FileList | null,
-  });
+  const { register, handleSubmit } = useForm<InsertionData>();
+  const onSubmit: SubmitHandler<InsertionData> = data => console.log(data);
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
-  ) => {
-    const { name, value } = e.target;
-    setInsertionData({ ...insertionData, [name]: value });
-  };
+  // const addInsertion = async () => {
+  //   const db = getDatabase(app);
+  //   const newInsertionRef = push(ref(db, 'Insertion'));
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setInsertionData({ ...insertionData, images: e.target.files });
-    }
-  };
-
-  const addInsertion = async () => {
-    const db = getDatabase(app);
-    const newInsertionRef = push(ref(db, 'Insertion'));
-
-    try {
-      await set(newInsertionRef, insertionData);
-      alert('Insertion saved successfully');
-    } catch (error) {
-      console.error('Error: ', error);
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    addInsertion();
-    console.log('Form data: ', insertionData);
-  };
+  //   try {
+  //     await set(newInsertionRef, insertionData);
+  //     alert('Insertion saved successfully');
+  //   } catch (error) {
+  //     console.error('Error: ', error);
+  //   }
+  // };
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">
         Create new insertion
       </h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label
             className="block text-gray-700 font-medium mb-2"
@@ -62,11 +31,10 @@ const Insertion: React.FC = () => {
             Instrument type
           </label>
           <input
+            {...register('instrumentType')}
             type="text"
             id="instrumentType"
             name="instrumentType"
-            value={insertionData.instrumentType}
-            onChange={handleChange}
             className="w-full border border-gray-300 rounded-md p-2"
             required
           />
@@ -79,11 +47,10 @@ const Insertion: React.FC = () => {
             Model
           </label>
           <input
+            {...register('model')}
             type="text"
             id="model"
             name="model"
-            value={insertionData.model}
-            onChange={handleChange}
             className="w-full border border-gray-300 rounded-md p-2"
             required
           />
@@ -96,11 +63,10 @@ const Insertion: React.FC = () => {
             Rent price (€)
           </label>
           <input
+            {...register('rentalPrice')}
             type="number"
             id="rentalPrice"
             name="rentalPrice"
-            value={insertionData.rentalPrice}
-            onChange={handleChange}
             className="w-full border border-gray-300 rounded-md p-2"
             required
           />
@@ -113,10 +79,9 @@ const Insertion: React.FC = () => {
             Instrument condition
           </label>
           <select
+            {...register('condition')}
             id="condition"
             name="condition"
-            value={insertionData.condition}
-            onChange={handleChange}
             className="w-full border border-gray-300 rounded-md p-2"
             required
           >
@@ -137,10 +102,10 @@ const Insertion: React.FC = () => {
             Instrument photo(s)
           </label>
           <input
+            {...register('images')}
             type="file"
             id="images"
             name="images"
-            onChange={handleFileChange}
             className="w-full border border-gray-300 rounded-md p-2"
             multiple
             accept="image/*"
@@ -154,11 +119,10 @@ const Insertion: React.FC = () => {
             Pickup/delivery location
           </label>
           <input
+            {...register('location')}
             type="text"
             id="location"
             name="location"
-            value={insertionData.location}
-            onChange={handleChange}
             className="w-full border border-gray-300 rounded-md p-2"
             required
           />
@@ -171,10 +135,9 @@ const Insertion: React.FC = () => {
             Delivery method
           </label>
           <select
+            {...register('deliveryMethod')}
             id="deliveryMethod"
             name="deliveryMethod"
-            value={insertionData.deliveryMethod}
-            onChange={handleChange}
             className="w-full border border-gray-300 rounded-md p-2"
             required
           >
@@ -194,10 +157,9 @@ const Insertion: React.FC = () => {
             Notes
           </label>
           <textarea
+            {...register('notes')}
             id="notes"
             name="notes"
-            value={insertionData.notes}
-            onChange={handleChange}
             className="w-full border border-gray-300 rounded-md p-2"
             rows={3}
           ></textarea>
