@@ -4,6 +4,7 @@ import {
   FaCashRegister,
   FaSignOutAlt,
   FaSignInAlt,
+  FaNewspaper,
 } from 'react-icons/fa';
 import { useUserAuth } from '../../context/userAuthContext';
 import { Link } from 'react-router-dom';
@@ -37,6 +38,12 @@ const Navbar: React.FC = () => {
           </li>
           {user ? (
             <>
+              <li>
+                <Link to="/new" className="flex items-center gap-2">
+                  New insertion
+                  <FaNewspaper />
+                </Link>
+              </li>
               <li>
                 <button
                   type="button"
