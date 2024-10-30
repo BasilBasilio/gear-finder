@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { InsertionData } from '../interfaces';
+import { InsertionData } from './types';
 
 const Insertion: React.FC = () => {
   const { register, handleSubmit } = useForm<InsertionData>();
