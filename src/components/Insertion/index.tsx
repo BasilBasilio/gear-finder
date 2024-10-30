@@ -1,21 +1,26 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { InsertionData } from './types';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 
 const Insertion: React.FC = () => {
   const { register, handleSubmit } = useForm<InsertionData>();
-  const onSubmit: SubmitHandler<InsertionData> = data => console.log(data);
 
-  // const addInsertion = async () => {
-  //   const db = getDatabase(app);
-  //   const newInsertionRef = push(ref(db, 'Insertion'));
+  const addInsertion = async (data: InsertionData) => {
+    try {
+      await addDoc(collection(db, 'insertions'), {
+        data,
+      });
+      alert('Insertion saved successfully');
+    } catch (error) {
+      console.error('Error: ', error);
+    }
+  };
 
-  //   try {
-  //     await set(newInsertionRef, insertionData);
-  //     alert('Insertion saved successfully');
-  //   } catch (error) {
-  //     console.error('Error: ', error);
-  //   }
-  // };
+  const onSubmit: SubmitHandler<InsertionData> = data => {
+    addInsertion(data);
+    console.log('Form data: ', data);
+  };
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
@@ -92,24 +97,6 @@ const Insertion: React.FC = () => {
             <option value="good">Good</option>
             <option value="used">Used with marks</option>
           </select>
-        </div>
-
-        <div>
-          <label
-            className="block text-gray-700 font-medium mb-2"
-            htmlFor="images"
-          >
-            Instrument photo(s)
-          </label>
-          <input
-            {...register('images')}
-            type="file"
-            id="images"
-            name="images"
-            className="w-full border border-gray-300 rounded-md p-2"
-            multiple
-            accept="image/*"
-          />
         </div>
         <div>
           <label
