@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserSignIn } from '../interfaces';
+import { UserSignIn } from './types';
 import { googleSignIn, signUp } from '../../auth';
 
 const initialValue: UserSignIn = {
