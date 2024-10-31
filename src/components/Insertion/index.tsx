@@ -9,7 +9,7 @@ const Insertion: React.FC = () => {
   const addInsertion = async (data: InsertionData) => {
     try {
       await addDoc(collection(db, 'insertions'), {
-        data,
+        ...data,
       });
       alert('Insertion saved successfully');
     } catch (error) {
@@ -19,7 +19,6 @@ const Insertion: React.FC = () => {
 
   const onSubmit: SubmitHandler<InsertionData> = data => {
     addInsertion(data);
-    console.log('Form data: ', data);
   };
 
   return (

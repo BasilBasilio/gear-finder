@@ -7,6 +7,7 @@ import ProtectedRoutes from '../components/ProtectedRoutes/index.tsx';
 import UserSignUp from '../components/UserSignIn/index.tsx';
 import Insertion from '../components/Insertion/index.tsx';
 import Login from '../pages/login/index.tsx';
+import Results from '../components/Insertion/Results/index.tsx';
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,11 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+        errorElement: <Error />,
+      },
+      {
+        path: '/results',
+        element: <Results />,
         errorElement: <Error />,
       },
       {
