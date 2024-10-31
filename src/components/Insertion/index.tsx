@@ -8,9 +8,7 @@ const Insertion: React.FC = () => {
 
   const addInsertion = async (data: InsertionData) => {
     try {
-      await addDoc(collection(db, 'insertions'), {
-        ...data,
-      });
+      await addDoc(collection(db, 'insertions'), data);
       alert('Insertion saved successfully');
     } catch (error) {
       console.error('Error: ', error);

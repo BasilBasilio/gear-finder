@@ -1,30 +1,15 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { Form } from 'react-router-dom';
 
 const SearchBar: React.FC = () => {
-  const [query, setQuery] = useState('');
-  const navigate = useNavigate();
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      navigate(`/results?query=${query}`);
-    }
-  };
-
   return (
-    <div>
+    <Form action="/results">
       <input
+        name="query"
         type="text"
         className="ml-4 rounded-sm"
-        value={query}
         placeholder="Search insertions..."
-        onChange={e => {
-          setQuery(e.target.value);
-        }}
-        onKeyDown={handleKeyDown}
       />
-    </div>
+    </Form>
   );
 };
 
