@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../firebaseConfig';
+import SearchBar from '../Insertion/SearchBar';
 
 const Navbar: React.FC = () => {
   const user = useUserAuth();
@@ -29,6 +30,7 @@ const Navbar: React.FC = () => {
     <nav className="bg-blue-600 py-2 px-22">
       <div className="flex justify-between mx-auto items-center py-4 px-24">
         <div className="text-white font-bold text-xl">Gearfinder</div>
+        <SearchBar />
         <ul className="flex gap-8 ml-auto mr-6 text-white cursor-pointer">
           <li>
             <Link to="/" className="flex items-center gap-2">
