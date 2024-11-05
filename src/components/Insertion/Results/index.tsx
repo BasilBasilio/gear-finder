@@ -1,8 +1,7 @@
-import { collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { db } from '../../../firebaseConfig';
 import { InsertionData } from '../types';
+import { algoliaClient } from './algoliaConfig';
 
 const Results: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -11,19 +10,21 @@ const Results: React.FC = () => {
 
   useEffect(() => {
     getInsertions();
-  }, []);
+  }, [query]);
 
   const getInsertions = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'insertions'));
-      const insertionList: InsertionData[] = [];
-
-      querySnapshot.forEach(doc => {
-        const data = doc.data() as InsertionData;
-        insertionList.push({ ...data, id: doc.id });
+      const searchKey = query ?? '';
+      const res = await algoliaClient.searchForHits<InsertionData>({
+        requests: [
+          {
+            indexName: 'insertions',
+            query: searchKey,
+          },
+        ],
       });
-
-      setInsertions(insertionList);
+      const insertions = res.results[0].hits;
+      setInsertions(insertions);
     } catch (error) {
       console.error('Error fetching insertions:', error);
     }
