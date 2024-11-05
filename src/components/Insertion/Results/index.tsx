@@ -1,17 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { InsertionData } from '../types';
-import { searchClient } from '@algolia/client-search';
-
-const appID = import.meta.env.ANGOLIA_APP_ID;
-const apiKey = import.meta.env.ANGOLIA_API_KEY;
+import { algoliaClient } from './algoliaConfig';
 
 const Results: React.FC = () => {
   const [searchParams] = useSearchParams();
   const [insertions, setInsertions] = useState<InsertionData[]>([]);
   const query = searchParams.get('query');
-
-  const algoliaClient = searchClient(appID, apiKey);
 
   useEffect(() => {
     getInsertions();
