@@ -1,29 +1,35 @@
-import { collection, getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { db } from '../../../firebaseConfig';
 import { InsertionData } from '../types';
+import { searchClient } from '@algolia/client-search';
+
+const appID = import.meta.env.ANGOLIA_APP_ID;
+const apiKey = import.meta.env.ANGOLIA_API_KEY;
 
 const Results: React.FC = () => {
   const [searchParams] = useSearchParams();
   const [insertions, setInsertions] = useState<InsertionData[]>([]);
   const query = searchParams.get('query');
 
+  const algoliaClient = searchClient(appID, apiKey);
+
   useEffect(() => {
     getInsertions();
-  }, []);
+  }, [query]);
 
   const getInsertions = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'insertions'));
-      const insertionList: InsertionData[] = [];
-
-      querySnapshot.forEach(doc => {
-        const data = doc.data() as InsertionData;
-        insertionList.push({ ...data, id: doc.id });
+      const searchKey = query ?? '';
+      const res = await algoliaClient.searchForHits<InsertionData>({
+        requests: [
+          {
+            indexName: 'insertions',
+            query: searchKey,
+          },
+        ],
       });
-
-      setInsertions(insertionList);
+      const insertions = res.results[0].hits;
+      setInsertions(insertions);
     } catch (error) {
       console.error('Error fetching insertions:', error);
     }
