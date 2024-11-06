@@ -17,4 +17,12 @@ test.describe('Login', () => {
     await page.goto('/user');
     expect(page.url()).toBe('http://localhost:5173/user');
   });
+
+  test('should redirect to login page if not authenticated', async ({
+    page,
+  }) => {
+    await page.context().clearCookies();
+    await page.goto('/user');
+    await expect(page).toHaveURL('http://localhost:5173/login');
+  });
 });
