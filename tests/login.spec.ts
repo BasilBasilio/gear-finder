@@ -6,5 +6,5 @@ test('Login test redirect to homepage', async ({ page }) => {
   await page.getByLabel('Password').fill('testtest');
   await page.getByRole('button', { name: 'Log in' }).click();
   await page.waitForURL('/');
-  expect(page.url()).toBe('/');
+  expect(page.url()).toBe('http://localhost:5173/');
 });
