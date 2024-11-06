@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "test": "npx playwright test"
+    "test": "npx playwright test",
+    "test:ui": "playwright test --ui"
   },
   "dependencies": {
     "@types/algoliasearch": "^3.34.11",
