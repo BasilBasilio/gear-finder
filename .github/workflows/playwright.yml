@@ -17,6 +17,16 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: npx playwright test
+        env:
+          VITE_FIREBASE_APIKEY: ${{ secrets.VITE_FIREBASE_APIKEY }}
+          VITE_FIREBASE_AUTHDOMAIN: ${{ secrets.VITE_FIREBASE_AUTHDOMAIN }}
+          VITE_FIREBASE_PROJECTID: ${{ secrets.VITE_FIREBASE_PROJECTID }}
+          VITE_FIREBASE_STORAGEBUCKET: ${{ secrets.VITE_FIREBASE_STORAGEBUCKET }}
+          VITE_FIREBASE_MESSAGESENDRID: ${{ secrets.VITE_FIREBASE_MESSAGESENDRID }}
+          VITE_FIREBASE_APPID: ${{ secrets.VITE_FIREBASE_APPID }}
+          VITE_FIREBASE_DB: ${{ secrets.VITE_FIREBASE_DB }}
+          VITE_ANGOLIA_APP_ID: ${{ secrets.VITE_ANGOLIA_APP_ID }}
+          VITE_ANGOLIA_API_KEY: ${{ secrets.VITE_ANGOLIA_API_KEY }}
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
