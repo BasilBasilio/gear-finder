@@ -1,28 +1,32 @@
 import { test, expect } from '@playwright/test';
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('/login');
-  await page.getByLabel('Email').fill('test@gmail.com');
-  await page.getByLabel('Password').fill('testtest');
-});
-
-test.describe('Login', () => {
-  test('should redirect to homepage', async ({ page }) => {
-    await page.getByRole('button', { name: 'Log in' }).click();
-    await page.waitForURL('/');
-    expect(page.url()).toBe('http://localhost:5173/');
-  });
-
-  test('should access to user protected route', async ({ page }) => {
-    await page.goto('/user');
-    expect(page.url()).toBe('http://localhost:5173/user');
-  });
-
+test.describe('Access without authentication', () => {
   test('should redirect to login page if not authenticated', async ({
     page,
   }) => {
     await page.context().clearCookies();
     await page.goto('/user');
-    await expect(page).toHaveURL('http://localhost:5173/login');
+    await expect(page).toHaveURL('/login');
+  });
+});
+
+test.describe('Access with authentication', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/login');
+    await page.getByLabel('Email').fill('test@gmail.com');
+    await page.getByLabel('Password').fill('testtest');
+    await page.getByRole('button', { name: 'Log in' }).click();
+  });
+
+  test('should redirect to homepage after login', async ({ page }) => {
+    await expect(page).toHaveURL('/');
+  });
+
+  test('should access user protected route when logged in', async ({
+    page,
+  }) => {
+    await expect(page).toHaveURL('/');
+    await page.goto('/user');
+    await expect(page).toHaveURL('/user');
   });
 });
