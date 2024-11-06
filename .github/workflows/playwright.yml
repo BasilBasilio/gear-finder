@@ -15,8 +15,32 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+      - name: Set environment variables from .env
+        run: |
+          set -o allexport
+          source .env
+          set +o allexport
+          echo "VITE_FIREBASE_APIKEY=$VITE_FIREBASE_APIKEY" >> $GITHUB_ENV
+          echo "VITE_FIREBASE_AUTHDOMAIN=$VITE_FIREBASE_AUTHDOMAIN" >> $GITHUB_ENV
+          echo "VITE_FIREBASE_PROJECTID=$VITE_FIREBASE_PROJECTID" >> $GITHUB_ENV
+          echo "VITE_FIREBASE_STORAGEBUCKET=$VITE_FIREBASE_STORAGEBUCKET" >> $GITHUB_ENV
+          echo "VITE_FIREBASE_MESSAGESENDRID=$VITE_FIREBASE_MESSAGESENDRID" >> $GITHUB_ENV
+          echo "VITE_FIREBASE_APPID=$VITE_FIREBASE_APPID" >> $GITHUB_ENV
+          echo "VITE_FIREBASE_DB=$VITE_FIREBASE_DB" >> $GITHUB_ENV
+          echo "VITE_ANGOLIA_APP_ID=$VITE_ANGOLIA_APP_ID" >> $GITHUB_ENV
+          echo "VITE_ANGOLIA_API_KEY=$VITE_ANGOLIA_API_KEY" >> $GITHUB_ENV
       - name: Run Playwright tests
         run: npx playwright test
+        env:
+          VITE_FIREBASE_APIKEY: ${{ secrets.VITE_FIREBASE_APIKEY }}
+          VITE_FIREBASE_AUTHDOMAIN: ${{ secrets.VITE_FIREBASE_AUTHDOMAIN }}
+          VITE_FIREBASE_PROJECTID: ${{ secrets.VITE_FIREBASE_PROJECTID }}
+          VITE_FIREBASE_STORAGEBUCKET: ${{ secrets.VITE_FIREBASE_STORAGEBUCKET }}
+          VITE_FIREBASE_MESSAGESENDRID: ${{ secrets.VITE_FIREBASE_MESSAGESENDRID }}
+          VITE_FIREBASE_APPID: ${{ secrets.VITE_FIREBASE_APPID }}
+          VITE_FIREBASE_DB: ${{ secrets.VITE_FIREBASE_DB }}
+          VITE_ANGOLIA_APP_ID: ${{ secrets.VITE_ANGOLIA_APP_ID }}
+          VITE_ANGOLIA_API_KEY: ${{ secrets.VITE_ANGOLIA_API_KEY }}
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
