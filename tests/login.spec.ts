@@ -1,32 +1,27 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Access without authentication', () => {
-  test('should redirect to login page if not authenticated', async ({
-    page,
-  }) => {
-    await page.context().clearCookies();
-    await page.goto('/user');
-    await expect(page).toHaveURL('/login');
-  });
+test.beforeEach(async ({ page }) => {
+  await page.goto('/login');
+  await page.getByLabel('Email').fill('test@gmail.com');
+  await page.getByLabel('Password').fill('testtest');
+  await page.getByRole('button', { name: 'Log In' }).click();
+  await page.waitForURL('/');
 });
 
-test.describe('Access with authentication', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/login');
-    await page.getByLabel('Email').fill('test@gmail.com');
-    await page.getByLabel('Password').fill('testtest');
-    await page.getByRole('button', { name: 'Log in' }).click();
-  });
+test('should access user protected route when logged in', async ({ page }) => {
+  await page.goto('/user');
+  await expect(page).toHaveURL('/user');
+});
 
-  test('should redirect to homepage after login', async ({ page }) => {
-    await expect(page).toHaveURL('/');
-  });
+test('should redirect to login page if not authenticated', async ({
+  browser,
+}) => {
+  const context = await browser.newContext();
+  const pageWithoutAuth = await context.newPage();
 
-  test('should access user protected route when logged in', async ({
-    page,
-  }) => {
-    await expect(page).toHaveURL('/');
-    await page.goto('/user');
-    await expect(page).toHaveURL('/user');
-  });
+  await pageWithoutAuth.goto('/user');
+  await expect(pageWithoutAuth).toHaveURL('/login');
+
+  await pageWithoutAuth.close();
+  await context.close();
 });
