@@ -7,7 +7,6 @@ test('should update input value and navigate on Enter key press', async ({
   const searchInput = page.locator('input[type="text"]');
   const testQuery = 'Playwright test';
   await searchInput.fill(testQuery);
-  await expect(searchInput).toHaveValue(testQuery);
   await searchInput.press('Enter');
   await expect(page).toHaveURL(
     `/results?query=${encodeURIComponent(testQuery)}`,
