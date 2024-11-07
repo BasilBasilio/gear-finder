@@ -1,6 +1,9 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 
-test.beforeEach(async ({ page }) => {
+let page: Page;
+
+test.beforeAll(async ({ browser }) => {
+  page = await browser.newPage();
   await page.goto('/login');
   await page.getByLabel('Email').fill('test@gmail.com');
   await page.getByLabel('Password').fill('testtest');
@@ -13,15 +16,11 @@ test('should access user protected route when logged in', async ({ page }) => {
   await expect(page).toHaveURL('/user');
 });
 
-test('should redirect to login page if not authenticated', async ({
-  browser,
-}) => {
-  const context = await browser.newContext();
-  const pageWithoutAuth = await context.newPage();
+test('should redirect to login page if not authenticated', async ({ page }) => {
+  await page.goto('/user');
+  await expect(page).toHaveURL('/login');
+});
 
-  await pageWithoutAuth.goto('/user');
-  await expect(pageWithoutAuth).toHaveURL('/login');
-
-  await pageWithoutAuth.close();
-  await context.close();
+test.afterAll(async () => {
+  await page.close();
 });
