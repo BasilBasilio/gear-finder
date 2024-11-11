@@ -15,11 +15,8 @@ test('should upload vite.svg image', async ({ page }) => {
   await page.goto('/user');
   await expect(page).toHaveURL('/user');
   await page.goto('/new');
-  const fileChooserPromise = page.waitForEvent('filechooser');
-  await page.getByLabel('Insertion image').click();
-  const fileChooser = await fileChooserPromise;
-  await fileChooser.setFiles(filePath);
-  const fileInputValue = await page.locator('input[type="file"]').inputValue();
-
+  const fileInput = page.locator('input[type="file"]');
+  await fileInput.setInputFiles(filePath);
+  const fileInputValue = await fileInput.inputValue();
   expect(fileInputValue.split('\\').pop()).toBe('test.svg');
 });
