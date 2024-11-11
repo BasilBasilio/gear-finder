@@ -7,5 +7,6 @@ export interface InsertionData {
   condition: string;
   location: string;
   deliveryMethod: string;
+  imageUrl: string | undefined;
   notes: string;
 }

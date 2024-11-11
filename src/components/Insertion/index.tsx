@@ -1,10 +1,23 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { InsertionData } from './types';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../firebaseConfig';
+import { db, storage } from '../../firebaseConfig';
+import { useRef } from 'react';
 
 const Insertion: React.FC = () => {
   const { register, handleSubmit } = useForm<InsertionData>();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const uploadFile = async (file: File) => {
+    const storageRef = ref(storage, `images/${file.name}`);
+    try {
+      await uploadBytes(storageRef, file);
+      return await getDownloadURL(storageRef);
+    } catch (error) {
+      console.error('File upload failed: ', error);
+    }
+  };
 
   const addInsertion = async (data: InsertionData) => {
     try {
@@ -17,8 +30,10 @@ const Insertion: React.FC = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<InsertionData> = data => {
-    addInsertion(data);
+  const onSubmit: SubmitHandler<InsertionData> = async data => {
+    const file = fileInputRef.current?.files?.[0];
+    const imageUrl = await uploadFile(file!);
+    addInsertion({ ...data, imageUrl });
   };
 
   return (
@@ -134,6 +149,20 @@ const Insertion: React.FC = () => {
             <option value="delivery">Home delivery</option>
             <option value="shipping">Shipping</option>
           </select>
+        </div>
+        <div>
+          <label
+            htmlFor="image"
+            className="block text-gray-700 font-medium mb-2"
+          >
+            Insertion image
+          </label>
+          <input
+            type="file"
+            id="image"
+            ref={fileInputRef}
+            className="w-full border border-gray-300 rounded-md p-2"
+          />
         </div>
         <div>
           <label
