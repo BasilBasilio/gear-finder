@@ -12,6 +12,7 @@ import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../firebaseConfig';
 import SearchBar from '../Insertion/SearchBar';
+import VaulDrawer from '../Drawer';
 
 const Navbar: React.FC = () => {
   const user = useUserAuth();
@@ -29,11 +30,16 @@ const Navbar: React.FC = () => {
   return (
     <nav className="bg-blue-600 py-2 px-22">
       <div className="flex justify-between mx-auto items-center py-4 px-24">
-        <div className="text-white font-bold text-xl">Gearfinder</div>
-        <SearchBar />
-        <ul className="flex gap-8 ml-auto mr-6 text-white cursor-pointer">
+        <div className="hidden sm:block text-white font-bold text-xl absolute left-10">
+          Gearfinder
+        </div>
+        <div className="sm:hidden text-white font-bold text-xl absolute left-10">
+          G
+        </div>
+        <ul className="hidden md:flex gap-8 ml-auto mr-6 text-white cursor-pointer">
+          <SearchBar />
           <li>
-            <Link to="/" className="flex items-center gap-2">
+            <Link to="/" className="flex items-center gap-2 mt-1">
               Home
               <FaHome />
             </Link>
@@ -41,8 +47,8 @@ const Navbar: React.FC = () => {
           {user ? (
             <>
               <li>
-                <Link to="/new" className="flex items-center gap-2">
-                  New insertion
+                <Link to="/new" className="flex items-center gap-2 mt-1">
+                  New
                   <FaNewspaper />
                 </Link>
               </li>
@@ -50,29 +56,29 @@ const Navbar: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="nav-link flex items-center gap-2"
+                  className="nav-link flex items-center gap-2 mt-1"
                 >
                   Logout
                   <FaSignOutAlt />
                 </button>
               </li>
               <li>
-                <Link to="/user" className="flex items-center gap-2">
-                  <FaUser />
+                <Link to="/user" className="flex items-center gap-2 mt-1">
                   <span>{user.email}</span>
+                  <FaUser />
                 </Link>
               </li>
             </>
           ) : (
             <>
               <li>
-                <Link to="/register" className="flex items-center gap-2">
+                <Link to="/register" className="flex items-center gap-2 mt-2">
                   Register
                   <FaCashRegister />
                 </Link>
               </li>
               <li>
-                <Link to="/login" className="flex items-center gap-2">
+                <Link to="/login" className="flex items-center gap-2 mt-2">
                   Login
                   <FaSignInAlt />
                 </Link>
@@ -80,6 +86,9 @@ const Navbar: React.FC = () => {
             </>
           )}
         </ul>
+      </div>
+      <div className="md:hidden absolute right-10 top-2">
+        <VaulDrawer />
       </div>
     </nav>
   );

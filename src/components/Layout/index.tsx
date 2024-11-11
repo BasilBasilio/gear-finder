@@ -3,10 +3,10 @@ import Navbar from '../Navbar';
 
 const Layout: React.FC = () => {
   return (
-    <>
+    <div className="relative h-screen overflow-x-hidden">
       <Navbar />
       <Outlet />
-    </>
+    </div>
   );
 };
 

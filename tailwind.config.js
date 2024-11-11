@@ -2,7 +2,11 @@
 export default {
   content: ['./src/**/*.tsx'],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        md: '1050px',
+      },
+    },
   },
   plugins: [],
 };
