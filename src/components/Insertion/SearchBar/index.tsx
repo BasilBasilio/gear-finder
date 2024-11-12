@@ -16,7 +16,7 @@ const SearchBar: React.FC = () => {
     <div>
       <input
         type="text"
-        className="rounded-sm mt-1"
+        className="rounded-sm p-1 text-gray-800"
         value={query}
         placeholder="Search insertions..."
         onChange={e => {
