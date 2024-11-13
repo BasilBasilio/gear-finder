@@ -27,7 +27,7 @@ const Results: React.FC = () => {
 
   const { data: insertions, isLoading } = useQuery({
     queryFn: getInsertions,
-    queryKey: ['insertions', query],
+    queryKey: ['insertions', 'byQuery', query],
   });
 
   if (isLoading) {

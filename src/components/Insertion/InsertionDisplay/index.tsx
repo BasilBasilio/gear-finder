@@ -8,11 +8,11 @@ import { useQuery } from '@tanstack/react-query';
 const InsertionDisplay: React.FC = () => {
   const user = useUserAuth();
 
-  const getData = async () => {
+  const getData = async (userId: string) => {
     try {
       const q = query(
         collection(db, 'insertions'),
-        where('userId', '==', user?.uid),
+        where('userId', '==', userId),
       );
       const querySnapshot = await getDocs(q);
       const insertions = querySnapshot.docs.map(doc => {
@@ -30,8 +30,8 @@ const InsertionDisplay: React.FC = () => {
   };
 
   const { data: insertions, isLoading } = useQuery({
-    queryFn: getData,
-    queryKey: ['insertions'],
+    queryFn: () => getData(user?.uid || ''),
+    queryKey: ['insertions', 'byUser', user?.uid],
   });
 
   if (isLoading) {
