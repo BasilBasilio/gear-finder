@@ -1,7 +1,6 @@
 import { InsertionData } from '../../types';
 
 const MapResults: React.FC<InsertionData> = ({
-  id,
   model,
   instrumentType,
   description,
