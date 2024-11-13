@@ -12,8 +12,7 @@ const MapResults: React.FC<InsertionData> = ({
         <h2 className="text-lg font-semibold text-gray-900">{model}</h2>
       </div>
       <p className="text-gray-700 text-sm">{instrumentType}</p>
-      <p className="text-blue-500 font-bold"></p>
-      {description}
+      <p className="text-blue-500 font-bold"> {description}</p>
       <p className="text-blue-500 font-bold">€{rentalPrice}/day</p>
     </li>
   );
