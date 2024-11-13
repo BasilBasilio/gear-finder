@@ -4,10 +4,12 @@ import { InsertionData } from './types';
 import { collection, addDoc } from 'firebase/firestore';
 import { db, storage } from '../../firebaseConfig';
 import { useRef } from 'react';
+import { useUserAuth } from '../../context/userAuthContext';
 
 const Insertion: React.FC = () => {
   const { register, handleSubmit } = useForm<InsertionData>();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const user = useUserAuth();
 
   const uploadFile = async (file: File) => {
     const storageRef = ref(storage, `images/${file.name}`);
@@ -23,6 +25,7 @@ const Insertion: React.FC = () => {
     try {
       await addDoc(collection(db, 'insertions'), {
         ...data,
+        userId: user?.uid,
       });
       alert('Insertion saved successfully');
     } catch (error) {
@@ -162,6 +165,7 @@ const Insertion: React.FC = () => {
             id="image"
             ref={fileInputRef}
             className="w-full border border-gray-300 rounded-md p-2"
+            required
           />
         </div>
         <div>

@@ -5,6 +5,7 @@ import {
   FaSignOutAlt,
   FaSignInAlt,
   FaNewspaper,
+  FaGuitar,
 } from 'react-icons/fa';
 import { useUserAuth } from '../../context/userAuthContext';
 import { Link } from 'react-router-dom';
@@ -30,14 +31,18 @@ const Navbar: React.FC = () => {
   return (
     <nav className="bg-blue-600 py-2 px-22">
       <div className="flex justify-between mx-auto items-center py-4 px-24">
-        <div className="hidden sm:block text-white font-bold text-xl absolute left-10">
+        <div className="hidden sm:flex text-white font-bold text-xl absolute left-10">
           Gearfinder
+          <FaGuitar className="mt-0.5" />
         </div>
-        <div className="sm:hidden text-white font-bold text-xl absolute left-10">
+        <div className="flex sm:hidden text-white font-bold text-xl absolute left-10">
           G
+          <FaGuitar className="mt-0.5" />
         </div>
         <ul className="hidden md:flex gap-8 ml-auto mr-6 text-white cursor-pointer">
-          <SearchBar />
+          <div className="hidden lg:block">
+            <SearchBar />
+          </div>
           <li>
             <Link to="/" className="flex items-center gap-2 mt-1">
               Home
@@ -72,13 +77,13 @@ const Navbar: React.FC = () => {
           ) : (
             <>
               <li>
-                <Link to="/register" className="flex items-center gap-2 mt-2">
+                <Link to="/register" className="flex items-center gap-2 mt-1">
                   Register
                   <FaCashRegister />
                 </Link>
               </li>
               <li>
-                <Link to="/login" className="flex items-center gap-2 mt-2">
+                <Link to="/login" className="flex items-center gap-2 mt-1">
                   Login
                   <FaSignInAlt />
                 </Link>
@@ -87,7 +92,7 @@ const Navbar: React.FC = () => {
           )}
         </ul>
       </div>
-      <div className="md:hidden absolute right-10 top-2">
+      <div className="md:hidden absolute right-10 top-1">
         <VaulDrawer />
       </div>
     </nav>
