@@ -1,16 +1,11 @@
-import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { InsertionData } from '../types';
 import { algoliaClient } from './algoliaConfig';
+import { useQuery } from '@tanstack/react-query';
 
 const Results: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const [insertions, setInsertions] = useState<InsertionData[]>([]);
   const query = searchParams.get('query');
-
-  useEffect(() => {
-    getInsertions();
-  }, [query]);
 
   const getInsertions = async () => {
     try {
@@ -24,20 +19,29 @@ const Results: React.FC = () => {
         ],
       });
       const insertions = res.results[0].hits;
-      setInsertions(insertions);
+      return insertions;
     } catch (error) {
       console.error('Error fetching insertions:', error);
     }
   };
+
+  const { data: insertions, isLoading } = useQuery({
+    queryFn: getInsertions,
+    queryKey: ['insertions', query],
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="max-w-3xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4 text-gray-800">
         Search results for: <span className="text-blue-600">"{query}"</span>
       </h1>
-      {insertions.length > 0 ? (
+      {(insertions ?? []).length > 0 ? (
         <ul className="space-y-4">
-          {insertions.map(insertion => (
+          {insertions?.map(insertion => (
             <li
               key={insertion.id}
               className="bg-white shadow-md rounded-lg p-4 transition-transform transform hover:scale-105"
