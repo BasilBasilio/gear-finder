@@ -33,7 +33,7 @@ const InsertionDisplay: React.FC = () => {
 
   useEffect(() => {
     getData();
-  });
+  }, []);
 
   return (
     <div className="p-6 font-sans bg-gray-50 min-h-screen">
