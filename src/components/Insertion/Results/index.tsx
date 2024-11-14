@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { InsertionData } from '../types';
 import { algoliaClient } from './algoliaConfig';
 import { useQuery } from '@tanstack/react-query';
@@ -46,15 +46,21 @@ const Results: React.FC = () => {
               key={insertion.id}
               className="bg-white shadow-md rounded-lg p-4 transition-transform transform hover:scale-105"
             >
-              <h2 className="text-lg font-semibold text-gray-900">
-                {insertion.model}
-              </h2>
-              <p className="text-gray-700 text-sm">
-                {insertion.instrumentType}
-              </p>
-              <p className="text-blue-500 font-bold">
-                €{insertion.rentalPrice}/day
-              </p>
+              <Link
+                to={`/insertion/${insertion.objectID}`}
+                state={{ insertion }}
+              >
+                <h2 className="text-lg font-semibold text-gray-900">
+                  {insertion.model}
+                </h2>
+                <p className="text-gray-700 text-sm">
+                  {insertion.instrumentType}
+                </p>
+                <p className="text-gray-700 text-sm">{insertion.description}</p>
+                <p className="text-blue-500 font-bold">
+                  €{insertion.rentalPrice}/day
+                </p>
+              </Link>
             </li>
           ))}
         </ul>

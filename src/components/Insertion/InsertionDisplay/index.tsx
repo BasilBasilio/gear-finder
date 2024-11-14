@@ -4,6 +4,7 @@ import { InsertionData } from '../types';
 import { useUserAuth } from '../../../context/userAuthContext';
 import MapResults from './MapResults';
 import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 
 const InsertionDisplay: React.FC = () => {
   const user = useUserAuth();
@@ -46,7 +47,9 @@ const InsertionDisplay: React.FC = () => {
 
       <ul className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {insertions?.map(insertion => (
-          <MapResults key={insertion.id} {...insertion} />
+          <Link to={`/insertion/${insertion.id}`} state={{ insertion }}>
+            <MapResults key={insertion.id} {...insertion} />
+          </Link>
         ))}
       </ul>
     </div>
