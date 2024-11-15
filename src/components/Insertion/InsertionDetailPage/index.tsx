@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebaseConfig';
-import { InsertionData } from '../types';
+import { InsertionData } from '../InsertionFormForNewInsertion/types';
 import { useQuery } from '@tanstack/react-query';
 
 const InsertionDetail: React.FC = () => {
@@ -30,9 +30,6 @@ const InsertionDetail: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4 text-gray-800">
-        Dettagli dell'inserzione
-      </h1>
       <div>
         <h2 className="text-lg font-semibold text-gray-900">
           {insertion?.model}
@@ -40,6 +37,11 @@ const InsertionDetail: React.FC = () => {
         <p className="text-gray-700 text-sm">{insertion?.instrumentType}</p>
         <p className="text-gray-700 text-sm">{insertion?.description}</p>
         <p className="text-blue-500 font-bold">€{insertion?.rentalPrice}/day</p>
+        <img
+          src={insertion?.imageUrl}
+          alt="Instrument"
+          className="w-full h-auto max-w-[300px] max-h-[200px] object-contain"
+        />
       </div>
     </div>
   );

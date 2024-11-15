@@ -2,9 +2,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { InsertionData } from './types';
 import { collection, addDoc } from 'firebase/firestore';
-import { db, storage } from '../../firebaseConfig';
+import { db, storage } from '../../../firebaseConfig';
 import { useRef } from 'react';
-import { useUserAuth } from '../../context/userAuthContext';
+import { useUserAuth } from '../../../context/userAuthContext';
 
 const Insertion: React.FC = () => {
   const { register, handleSubmit } = useForm<InsertionData>();

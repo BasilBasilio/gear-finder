@@ -1,4 +1,4 @@
-import InsertionDisplay from '../../components/Insertion/InsertionDisplay';
+import InsertionDisplay from '../../components/Insertion/InsertionDisplayOnUserPage';
 
 const UserProfile: React.FC = () => {
   return <InsertionDisplay />;
