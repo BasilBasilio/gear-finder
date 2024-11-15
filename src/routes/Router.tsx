@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        path: '/insertion/:id',
+        path: '/insertion/:objectId',
         element: <InsertionDetail />,
         errorElement: <Error />,
       },

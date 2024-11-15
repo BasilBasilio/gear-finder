@@ -46,10 +46,7 @@ const Results: React.FC = () => {
               key={insertion.id}
               className="bg-white shadow-md rounded-lg p-4 transition-transform transform hover:scale-105"
             >
-              <Link
-                to={`/insertion/${insertion.objectID}`}
-                state={{ insertion }}
-              >
+              <Link to={`/insertion/${insertion.objectID}`}>
                 <h2 className="text-lg font-semibold text-gray-900">
                   {insertion.model}
                 </h2>

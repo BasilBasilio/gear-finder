@@ -1,5 +1,6 @@
 export interface InsertionData {
   id: string;
+  objectId: string;
   instrumentType: string;
   model: string;
   description: string;
