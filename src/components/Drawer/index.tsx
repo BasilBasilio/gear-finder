@@ -27,7 +27,7 @@ const VaulDrawer: React.FC = () => {
       open={isOpen}
       onOpenChange={setIsOpen}
     >
-      <Drawer.Trigger className="p-2 bg-blue-500 text-white rounded-full">
+      <Drawer.Trigger className="p-2 bg-blue-500 text-white rounded-full mt-1">
         <FaBars />
       </Drawer.Trigger>
 

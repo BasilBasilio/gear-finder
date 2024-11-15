@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
-import { InsertionData } from '../types';
+import { InsertionData } from '../InsertionFormForNewInsertion/types';
 import { algoliaClient } from './algoliaConfig';
 import { useQuery } from '@tanstack/react-query';
 
@@ -43,20 +43,34 @@ const Results: React.FC = () => {
         <ul className="space-y-4">
           {insertions?.map(insertion => (
             <li
-              key={insertion.id}
-              className="bg-white shadow-md rounded-lg p-4 transition-transform transform hover:scale-105"
+              key={insertion.objectID}
+              className="bg-white border-2 rounded-lg transition-transform transform hover:scale-105"
             >
-              <Link to={`/insertion/${insertion.objectID}`}>
-                <h2 className="text-lg font-semibold text-gray-900">
-                  {insertion.model}
-                </h2>
-                <p className="text-gray-700 text-sm">
-                  {insertion.instrumentType}
-                </p>
-                <p className="text-gray-700 text-sm">{insertion.description}</p>
-                <p className="text-blue-500 font-bold">
-                  €{insertion.rentalPrice}/day
-                </p>
+              <Link
+                to={`/insertion/${insertion.objectID}`}
+                className="flex flex-col sm:flex-row"
+              >
+                <img
+                  src={insertion.imageUrl}
+                  alt="Instrument"
+                  className="w-full h-full max-w-[300px] max-h-[200px] rounded-l-lg"
+                />
+                <div className="flex items-start space-x-4 p-4">
+                  <div className="flex-1">
+                    <h2 className="text-lg font-semibold text-gray-900">
+                      {insertion.model}
+                    </h2>
+                    <p className="text-gray-700 text-sm">
+                      {insertion.instrumentType}
+                    </p>
+                    <p className="text-gray-700 text-sm">
+                      {insertion.description}
+                    </p>
+                    <p className="text-blue-500 font-bold">
+                      €{insertion.rentalPrice}/day
+                    </p>
+                  </div>
+                </div>
               </Link>
             </li>
           ))}

@@ -1,6 +1,6 @@
 import { collection, query, getDocs, where } from 'firebase/firestore';
 import { db } from '../../../firebaseConfig';
-import { InsertionData } from '../types';
+import { InsertionData } from '../InsertionFormForNewInsertion/types';
 import { useUserAuth } from '../../../context/userAuthContext';
 import MapResults from './MapResults';
 import { useQuery } from '@tanstack/react-query';
