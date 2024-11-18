@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../firebaseConfig';
-import SearchBar from '../Insertion/SearchBar';
 import VaulDrawer from '../Drawer';
 
 const Navbar: React.FC = () => {
