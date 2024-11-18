@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { InsertionData } from './types';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db, storage } from '../../../firebaseConfig';
 import { useRef } from 'react';
 import { useUserAuth } from '../../../context/userAuthContext';
@@ -26,6 +26,7 @@ const Insertion: React.FC = () => {
       await addDoc(collection(db, 'insertions'), {
         ...data,
         userId: user?.uid,
+        createdAt: Timestamp.now(),
       });
       alert('Insertion saved successfully');
     } catch (error) {

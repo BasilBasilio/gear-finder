@@ -2,7 +2,7 @@ import { collection, query, getDocs, where } from 'firebase/firestore';
 import { db } from '../../../firebaseConfig';
 import { InsertionData } from '../InsertionFormForNewInsertion/types';
 import { useUserAuth } from '../../../context/userAuthContext';
-import MapResults from './MapResults';
+import ResultsByUser from './ResultsByUser';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 
@@ -48,7 +48,7 @@ const InsertionDisplay: React.FC = () => {
       <ul className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {insertions?.map(insertion => (
           <Link to={`/insertion/${insertion.id}`}>
-            <MapResults key={insertion.id} {...insertion} />
+            <ResultsByUser key={insertion.id} {...insertion} />
           </Link>
         ))}
       </ul>

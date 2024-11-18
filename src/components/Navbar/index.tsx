@@ -40,9 +40,6 @@ const Navbar: React.FC = () => {
           <FaGuitar className="mt-0.5" />
         </div>
         <ul className="hidden md:flex gap-8 ml-auto mr-6 text-white cursor-pointer">
-          <div className="hidden lg:block">
-            <SearchBar />
-          </div>
           <li>
             <Link to="/" className="flex items-center gap-2 mt-1">
               Home
