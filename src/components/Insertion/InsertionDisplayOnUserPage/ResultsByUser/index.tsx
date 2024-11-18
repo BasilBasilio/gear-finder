@@ -1,6 +1,6 @@
 import { InsertionData } from '../../InsertionFormForNewInsertion/types';
 
-const MapResults: React.FC<InsertionData> = ({
+const ResultsByUser: React.FC<InsertionData> = ({
   model,
   instrumentType,
   description,
@@ -24,4 +24,4 @@ const MapResults: React.FC<InsertionData> = ({
   );
 };
 
-export default MapResults;
+export default ResultsByUser;

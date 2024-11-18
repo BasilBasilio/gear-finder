@@ -1,6 +1,7 @@
 export interface InsertionData {
   id: string;
   objectId: string;
+  createdAt: string;
   instrumentType: string;
   model: string;
   description: string;
@@ -10,4 +11,5 @@ export interface InsertionData {
   deliveryMethod: string;
   imageUrl: string | undefined;
   notes: string;
+  nextCursor: string;
 }

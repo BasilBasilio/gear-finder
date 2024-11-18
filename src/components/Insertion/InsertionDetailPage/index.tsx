@@ -3,6 +3,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebaseConfig';
 import { InsertionData } from '../InsertionFormForNewInsertion/types';
 import { useQuery } from '@tanstack/react-query';
+import Loading from '../../Loading';
 
 const InsertionDetail: React.FC = () => {
   const { objectId } = useParams();
@@ -24,11 +25,11 @@ const InsertionDetail: React.FC = () => {
     queryKey: ['insertions', 'byInsertionId', objectId],
   });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  return (
+  return isLoading ? (
+    <div className="flex items-center justify-center mt-20">
+      <Loading type="bars" color="#2563eb" height={30} width={30} />
+    </div>
+  ) : (
     <div className="max-w-3xl mx-auto p-6">
       <div>
         <h2 className="text-lg font-semibold text-gray-900">
