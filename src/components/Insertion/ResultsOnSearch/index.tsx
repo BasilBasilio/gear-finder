@@ -50,11 +50,13 @@ const Results: React.FC = () => {
                 to={`/insertion/${insertion.objectID}`}
                 className="flex flex-col sm:flex-row"
               >
-                <img
-                  src={insertion.imageUrl}
-                  alt="Instrument"
-                  className="w-full h-full max-w-[300px] max-h-[200px] rounded-l-lg"
-                />
+                {insertions?.map(insertion => (
+                  <img
+                    src={insertion.imageUrls?.[0]}
+                    alt="Instrument"
+                    className="w-full h-full max-w-[300px] max-h-[200px] rounded-l-lg"
+                  />
+                ))}
                 <div className="flex items-start space-x-4 p-4">
                   <div className="flex-1">
                     <h2 className="text-lg font-semibold text-gray-900">
