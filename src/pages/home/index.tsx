@@ -78,13 +78,11 @@ const Home: React.FC = () => {
                   to={`/insertion/${insertion.id}`}
                   className="flex flex-col sm:flex-row"
                 >
-                  <div className="flex flex-wrap justify-center mt-4">
-                    <img
-                      key={insertion.id}
-                      src={insertion.imageUrls?.[0]}
-                      className="w-auto h-48 object-contain mx-2 my-2"
-                    />
-                  </div>
+                  <img
+                    src={insertion.imageUrl}
+                    alt={insertion.instrumentType || 'Instrument'}
+                    className="w-full h-auto max-w-[300px] max-h-[200px] object-contain"
+                  />
                   <div className="flex items-start space-x-4 p-4">
                     <div className="flex-1">
                       <h2 className="text-lg font-semibold text-gray-900">
