@@ -9,7 +9,7 @@ export interface InsertionData {
   condition: string;
   location: string;
   deliveryMethod: string;
-  imageUrl: string | undefined;
+  imageUrls: string[] | undefined;
   notes: string;
   nextCursor: string;
 }

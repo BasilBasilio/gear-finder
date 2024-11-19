@@ -2,6 +2,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { InsertionData } from '../InsertionFormForNewInsertion/types';
 import { algoliaClient } from './algoliaConfig';
 import { useQuery } from '@tanstack/react-query';
+import Loading from 'react-loading';
 
 const Results: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -30,11 +31,11 @@ const Results: React.FC = () => {
     queryKey: ['insertions', 'byQuery', query],
   });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  return (
+  return isLoading ? (
+    <div className="flex items-center justify-center mt-20">
+      <Loading type="bars" color="#2563eb" height={30} width={30} />
+    </div>
+  ) : (
     <div className="max-w-3xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4 text-gray-800">
         Search results for: <span className="text-blue-600">"{query}"</span>
@@ -51,7 +52,7 @@ const Results: React.FC = () => {
                 className="flex flex-col sm:flex-row"
               >
                 <img
-                  src={insertion.imageUrl}
+                  src={insertion.imageUrls?.[0]}
                   alt="Instrument"
                   className="w-full h-full max-w-[300px] max-h-[200px] rounded-l-lg"
                 />
