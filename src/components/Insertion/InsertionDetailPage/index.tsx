@@ -15,6 +15,7 @@ const InsertionDetail: React.FC = () => {
       const insertionRef = doc(db, `insertions/${objectId}`);
       const docSnap = await getDoc(insertionRef);
 
+      console.log('Document data retrieved:', docSnap.data());
       return docSnap.data() as InsertionData;
     } catch (error) {
       console.error('Error fetching documents:', error);
