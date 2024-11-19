@@ -3,22 +3,37 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { InsertionData } from './types';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db, storage } from '../../../firebaseConfig';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useUserAuth } from '../../../context/userAuthContext';
 
 const Insertion: React.FC = () => {
   const { register, handleSubmit } = useForm<InsertionData>();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [fileNames, setFileNames] = useState<string[]>([]);
   const user = useUserAuth();
 
-  const uploadFile = async (file: File) => {
-    const storageRef = ref(storage, `images/${file.name}`);
-    try {
-      await uploadBytes(storageRef, file);
-      return await getDownloadURL(storageRef);
-    } catch (error) {
-      console.error('File upload failed: ', error);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      const names = Array.from(files).map(file => file.name);
+      setFileNames(names);
     }
+  };
+
+  const uploadFiles = async (files: File[]): Promise<string[]> => {
+    const uploadPromises = files.map(async file => {
+      const storageRef = ref(storage, `images/${file.name}`);
+
+      try {
+        await uploadBytes(storageRef, file);
+        return await getDownloadURL(storageRef);
+      } catch (error) {
+        console.error('File upload failed: ', error);
+        return null;
+      }
+    });
+    const downloadUrls = await Promise.all(uploadPromises);
+    return downloadUrls.filter((url): url is string => url !== null);
   };
 
   const addInsertion = async (data: InsertionData) => {
@@ -35,9 +50,12 @@ const Insertion: React.FC = () => {
   };
 
   const onSubmit: SubmitHandler<InsertionData> = async data => {
-    const file = fileInputRef.current?.files?.[0];
-    const imageUrl = await uploadFile(file!);
-    addInsertion({ ...data, imageUrl });
+    const files = fileInputRef.current?.files;
+    if (files && files.length > 0) {
+      const fileArray = Array.from(files);
+      const imageUrls = await uploadFiles(fileArray);
+      await addInsertion({ ...data, imageUrls });
+    }
   };
 
   return (
@@ -165,9 +183,18 @@ const Insertion: React.FC = () => {
             type="file"
             id="image"
             ref={fileInputRef}
+            multiple
             className="w-full border border-gray-300 rounded-md p-2"
+            onChange={handleFileChange}
             required
           />
+          {fileNames.length > 0 && (
+            <ul className="mt-2 text-gray-600">
+              {fileNames.map((name, index) => (
+                <li key={index}>{name}</li>
+              ))}
+            </ul>
+          )}
         </div>
         <div>
           <label
