@@ -13,7 +13,6 @@ const InsertionDetail: React.FC = () => {
       const insertionRef = doc(db, `insertions/${objectId}`);
       const docSnap = await getDoc(insertionRef);
 
-      console.log('Document data retrieved:', docSnap.data());
       return docSnap.data() as InsertionData;
     } catch (error) {
       console.error('Error fetching documents:', error);
@@ -31,19 +30,25 @@ const InsertionDetail: React.FC = () => {
     </div>
   ) : (
     <div className="max-w-3xl mx-auto p-6">
-      <div>
-        <h2 className="text-lg font-semibold text-gray-900">
-          {insertion?.model}
-        </h2>
-        <p className="text-gray-700 text-sm">{insertion?.instrumentType}</p>
-        <p className="text-gray-700 text-sm">{insertion?.description}</p>
-        <p className="text-blue-500 font-bold">€{insertion?.rentalPrice}/day</p>
-        <img
-          src={insertion?.imageUrl}
-          alt="Instrument"
-          className="w-full h-auto max-w-[300px] max-h-[200px] object-contain"
-        />
-      </div>
+      <h2 className="text-lg font-semibold text-gray-900">
+        {insertion?.model}
+      </h2>
+      <p className="text-gray-700 text-sm">{insertion?.instrumentType}</p>
+      <p className="text-gray-700 text-sm">{insertion?.location}</p>
+      <p className="text-blue-500 font-bold">€{insertion?.rentalPrice}/day</p>
+      {insertion?.imageUrls && insertion.imageUrls.length > 0 && (
+        <div className="flex flex-wrap justify-center mt-4">
+          {insertion.imageUrls.map((url, index) => (
+            <img
+              key={index}
+              src={url}
+              alt={`Instrument ${index + 1}`}
+              className="w-auto h-48 object-contain mx-2 my-2"
+            />
+          ))}
+        </div>
+      )}
+      <p className="text-gray-700 text-sm">{insertion?.notes}</p>
     </div>
   );
 };
