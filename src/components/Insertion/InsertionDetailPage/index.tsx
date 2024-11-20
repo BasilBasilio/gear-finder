@@ -110,7 +110,10 @@ const InsertionDetail: React.FC = () => {
           </Carousel>
         </div>
       )}
-      <p className="text-gray-700 text-sm">{insertion?.notes}</p>
+      <article
+        dangerouslySetInnerHTML={{ __html: `${insertion?.description}` }}
+        className="prose lg:prose-xl mt-9"
+      />
       <button className="text-4xl mt-6" onClick={() => navigate('/')}>
         <IoArrowBack />
       </button>
