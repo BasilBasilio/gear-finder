@@ -5,12 +5,37 @@ import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db, storage } from '../../../firebaseConfig';
 import { useRef, useState } from 'react';
 import { useUserAuth } from '../../../context/userAuthContext';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const InsertionForm: React.FC = () => {
   const { register, handleSubmit } = useForm<InsertionData>();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [fileNames, setFileNames] = useState<string[]>([]);
   const user = useUserAuth();
+  const [description, setDescription] = useState('');
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ align: ['right', 'center', 'justify'] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+    ],
+  };
+
+  const formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'background',
+    'align',
+  ];
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -36,10 +61,15 @@ const InsertionForm: React.FC = () => {
     return downloadUrls.filter((url): url is string => url !== null);
   };
 
+  const handleProcedureContentChange = (description: string) => {
+    setDescription(description);
+  };
+
   const addInsertion = async (data: InsertionData) => {
     try {
       await addDoc(collection(db, 'insertions'), {
         ...data,
+        description: description,
         userId: user?.uid,
         createdAt: Timestamp.now(),
       });
@@ -48,7 +78,6 @@ const InsertionForm: React.FC = () => {
       console.error('Error: ', error);
     }
   };
-
   const onSubmit: SubmitHandler<InsertionData> = async data => {
     const files = fileInputRef.current?.files;
     if (files && files.length > 0) {
@@ -201,15 +230,16 @@ const InsertionForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="notes"
           >
-            Notes
+            Description
           </label>
-          <textarea
-            {...register('notes')}
-            id="notes"
-            name="notes"
-            className="w-full border border-gray-300 rounded-md p-2"
-            rows={3}
-          ></textarea>
+          <ReactQuill
+            className="h-56 pb-16"
+            theme="snow"
+            modules={modules}
+            formats={formats}
+            value={description}
+            onChange={handleProcedureContentChange}
+          />
         </div>
         <button
           type="submit"

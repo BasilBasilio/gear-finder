@@ -7,6 +7,7 @@ import { useRef, useState } from 'react';
 import { useUserAuth } from '../../../context/userAuthContext';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import ReactQuill from 'react-quill';
 
 const InsertionUpdateForm: React.FC = () => {
   const { register, handleSubmit } = useForm<InsertionData>();
@@ -14,6 +15,29 @@ const InsertionUpdateForm: React.FC = () => {
   const [fileNames, setFileNames] = useState<string[]>([]);
   const user = useUserAuth();
   const { objectId } = useParams();
+  const [description, setDescription] = useState('');
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ align: ['right', 'center', 'justify'] }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+    ],
+  };
+
+  const formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'background',
+    'align',
+  ];
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -61,6 +85,10 @@ const InsertionUpdateForm: React.FC = () => {
     } catch (error) {
       console.error('Error: ', error);
     }
+  };
+
+  const handleProcedureContentChange = (description: string) => {
+    setDescription(description);
   };
 
   const { data: insertion } = useQuery({
@@ -227,14 +255,14 @@ const InsertionUpdateForm: React.FC = () => {
           >
             Notes
           </label>
-          <textarea
-            {...register('notes')}
-            id="notes"
-            name="notes"
-            className="w-full border border-gray-300 rounded-md p-2"
-            placeholder={insertion?.notes}
-            rows={3}
-          ></textarea>
+          <ReactQuill
+            className="h-56 pb-16"
+            theme="snow"
+            modules={modules}
+            formats={formats}
+            value={description}
+            onChange={handleProcedureContentChange}
+          />
         </div>
         <button
           type="submit"
