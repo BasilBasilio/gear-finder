@@ -1,22 +1,35 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { InsertionData } from './types';
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { InsertionData } from '../InsertionFormForNewInsertion/types';
+import { doc, getDoc, Timestamp, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../../../firebaseConfig';
 import { useRef, useState } from 'react';
 import { useUserAuth } from '../../../context/userAuthContext';
+import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
-const InsertionForm: React.FC = () => {
+const InsertionUpdateForm: React.FC = () => {
   const { register, handleSubmit } = useForm<InsertionData>();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [fileNames, setFileNames] = useState<string[]>([]);
   const user = useUserAuth();
+  const { objectId } = useParams();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
       const names = Array.from(files).map(file => file.name);
       setFileNames(names);
+    }
+  };
+
+  const getInsertionByInsertionId = async (objectId: string) => {
+    try {
+      const insertionRef = doc(db, `insertions/${objectId}`);
+      const docSnap = await getDoc(insertionRef);
+      return docSnap.data() as InsertionData;
+    } catch (error) {
+      console.error('Error fetching documents:', error);
     }
   };
 
@@ -36,32 +49,38 @@ const InsertionForm: React.FC = () => {
     return downloadUrls.filter((url): url is string => url !== null);
   };
 
-  const addInsertion = async (data: InsertionData) => {
+  const updateInsertion = async (data: InsertionData) => {
     try {
-      await addDoc(collection(db, 'insertions'), {
+      const insertionRef = doc(db, `insertions/${objectId}`);
+      await updateDoc(insertionRef, {
         ...data,
         userId: user?.uid,
         createdAt: Timestamp.now(),
       });
-      alert('Insertion saved successfully');
+      alert('Insertion updated successfully');
     } catch (error) {
       console.error('Error: ', error);
     }
   };
+
+  const { data: insertion } = useQuery({
+    queryFn: () => getInsertionByInsertionId(objectId || ''),
+    queryKey: ['insertions', 'byInsertionId', objectId],
+  });
 
   const onSubmit: SubmitHandler<InsertionData> = async data => {
     const files = fileInputRef.current?.files;
     if (files && files.length > 0) {
       const fileArray = Array.from(files);
       const imageUrls = await uploadFiles(fileArray);
-      await addInsertion({ ...data, imageUrls });
+      await updateInsertion({ ...data, imageUrls });
     }
   };
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">
-        Create new insertion
+        Upload insertion
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
@@ -77,6 +96,7 @@ const InsertionForm: React.FC = () => {
             id="instrumentType"
             name="instrumentType"
             className="w-full border border-gray-300 rounded-md p-2"
+            placeholder={insertion?.instrumentType}
             required
           />
         </div>
@@ -93,6 +113,7 @@ const InsertionForm: React.FC = () => {
             id="model"
             name="model"
             className="w-full border border-gray-300 rounded-md p-2"
+            placeholder={insertion?.model}
             required
           />
         </div>
@@ -109,6 +130,7 @@ const InsertionForm: React.FC = () => {
             id="rentalPrice"
             name="rentalPrice"
             className="w-full border border-gray-300 rounded-md p-2"
+            placeholder={`${insertion?.rentalPrice}€/Day`}
             required
           />
         </div>
@@ -127,7 +149,7 @@ const InsertionForm: React.FC = () => {
             required
           >
             <option value="" disabled>
-              Seleziona...
+              {insertion?.condition}
             </option>
             <option value="new">Brand new</option>
             <option value="good">Good</option>
@@ -147,6 +169,7 @@ const InsertionForm: React.FC = () => {
             id="location"
             name="location"
             className="w-full border border-gray-300 rounded-md p-2"
+            placeholder={insertion?.location}
             required
           />
         </div>
@@ -165,7 +188,7 @@ const InsertionForm: React.FC = () => {
             required
           >
             <option value="" disabled>
-              Select...
+              {insertion?.deliveryMethod}
             </option>
             <option value="pickup">Collection on site</option>
             <option value="delivery">Home delivery</option>
@@ -186,6 +209,7 @@ const InsertionForm: React.FC = () => {
             multiple
             className="w-full border border-gray-300 rounded-md p-2"
             onChange={handleFileChange}
+            placeholder={insertion?.imageUrls?.[0]}
             required
           />
           {fileNames.length > 0 && (
@@ -208,18 +232,19 @@ const InsertionForm: React.FC = () => {
             id="notes"
             name="notes"
             className="w-full border border-gray-300 rounded-md p-2"
+            placeholder={insertion?.notes}
             rows={3}
           ></textarea>
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700"
+          className="w-full bg-green-600 text-white font-semibold py-2 rounded-md hover:bg-green-700"
         >
-          Save insertion
+          Update insertion
         </button>
       </form>
     </div>
   );
 };
 
-export default InsertionForm;
+export default InsertionUpdateForm;

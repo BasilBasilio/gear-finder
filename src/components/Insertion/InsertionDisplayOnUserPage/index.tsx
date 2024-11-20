@@ -2,12 +2,14 @@ import { collection, query, getDocs, where } from 'firebase/firestore';
 import { db } from '../../../firebaseConfig';
 import { InsertionData } from '../InsertionFormForNewInsertion/types';
 import { useUserAuth } from '../../../context/userAuthContext';
-import ResultsByUser from './ResultsByUser';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Loading from 'react-loading';
+import { IoArrowBack } from 'react-icons/io5';
 
 const InsertionDisplay: React.FC = () => {
   const user = useUserAuth();
+  const navigate = useNavigate();
 
   const getData = async (userId: string) => {
     try {
@@ -35,23 +37,55 @@ const InsertionDisplay: React.FC = () => {
     queryKey: ['insertions', 'byUser', user?.uid],
   });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  return isLoading ? (
+    <div className="flex items-center justify-center mt-20">
+      <Loading type="bars" color="#2563eb" height={30} width={30} />
+    </div>
+  ) : (
+    <div className="max-w-3xl mx-auto p-6">
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-gray-900">Your insertions</h1>
+        <div className="flex items-center justify-end gap-2"></div>
+      </div>
 
-  return (
-    <div className="p-6 font-sans bg-gray-50 min-h-screen">
-      <h2 className="text-3xl font-extrabold text-left text-gray-800 mb-6">
-        {`${user?.email} insertions:`}
-      </h2>
-
-      <ul className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <ul className="mt-6">
         {insertions?.map(insertion => (
-          <Link to={`/insertion/${insertion.id}`}>
-            <ResultsByUser key={insertion.id} {...insertion} />
-          </Link>
+          <li
+            key={insertion.id}
+            className="bg-white border-2 rounded-lg transition-transform transform hover:scale-105"
+          >
+            <Link
+              to={`/insertion/${insertion.id}`}
+              className="flex flex-col sm:flex-row"
+            >
+              <div className="flex flex-wrap justify-center mt-4">
+                <img
+                  key={insertion.id}
+                  src={insertion.imageUrls?.[0]}
+                  className="w-auto h-48 object-contain mx-2 my-2"
+                />
+              </div>
+              <div className="flex items-start space-x-4 p-4">
+                <div className="flex-1">
+                  <h2 className="text-lg font-semibold text-gray-900">
+                    {insertion.model}
+                  </h2>
+                  <p className="text-gray-700 text-sm">
+                    {insertion.instrumentType}
+                  </p>
+                  <p className="text-gray-700 text-sm">{insertion.location}</p>
+                  <p className="text-blue-500 font-bold">
+                    €{insertion.rentalPrice}/day
+                  </p>
+                </div>
+              </div>
+            </Link>
+          </li>
         ))}
       </ul>
+      <button className="text-4xl mt-6" onClick={() => navigate('/')}>
+        <IoArrowBack />
+      </button>
     </div>
   );
 };
