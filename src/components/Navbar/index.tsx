@@ -13,10 +13,17 @@ import { signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../firebaseConfig';
 import VaulDrawer from '../Drawer';
+import { useTranslation } from 'react-i18next';
 
 const Navbar: React.FC = () => {
   const user = useUserAuth();
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+
+  const onClickLanguageChange = (language: string) => {
+    i18n.changeLanguage(language);
+    localStorage.setItem('lng', language);
+  };
 
   const handleLogout = async () => {
     try {
@@ -39,9 +46,11 @@ const Navbar: React.FC = () => {
           <FaGuitar className="mt-0.5" />
         </div>
         <ul className="hidden md:flex gap-8 ml-auto mr-6 text-white cursor-pointer">
+          <button onClick={() => onClickLanguageChange('ita')}>ITA</button>
+          <button onClick={() => onClickLanguageChange('en')}>EN</button>
           <li>
-            <Link to="/" className="flex items-center gap-2 mt-1">
-              Home
+            <Link to="/" className="flex items-center gap-2 mt-1 paraStyle">
+              {t('navbar.home')}
               <FaHome />
             </Link>
           </li>
@@ -49,7 +58,7 @@ const Navbar: React.FC = () => {
             <>
               <li>
                 <Link to="/new" className="flex items-center gap-2 mt-1">
-                  New
+                  {t('navbar.new')}
                   <FaNewspaper />
                 </Link>
               </li>
@@ -59,7 +68,7 @@ const Navbar: React.FC = () => {
                   onClick={handleLogout}
                   className="nav-link flex items-center gap-2 mt-1"
                 >
-                  Logout
+                  {t('navbar.logout')}
                   <FaSignOutAlt />
                 </button>
               </li>
@@ -74,13 +83,13 @@ const Navbar: React.FC = () => {
             <>
               <li>
                 <Link to="/register" className="flex items-center gap-2 mt-1">
-                  Register
+                  {t('navbar.register')}
                   <FaCashRegister />
                 </Link>
               </li>
               <li>
                 <Link to="/login" className="flex items-center gap-2 mt-1">
-                  Login
+                  {t('navbar.login')}
                   <FaSignInAlt />
                 </Link>
               </li>

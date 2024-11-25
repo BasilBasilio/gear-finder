@@ -8,6 +8,7 @@ import { useUserAuth } from '../../../context/userAuthContext';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import ReactQuill from 'react-quill';
+import { useTranslation } from 'react-i18next';
 
 const InsertionUpdateForm: React.FC = () => {
   const { register, handleSubmit } = useForm<InsertionData>();
@@ -16,6 +17,7 @@ const InsertionUpdateForm: React.FC = () => {
   const user = useUserAuth();
   const { objectId } = useParams();
   const [description, setDescription] = useState('');
+  const { t } = useTranslation();
 
   const modules = {
     toolbar: [
@@ -108,7 +110,7 @@ const InsertionUpdateForm: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">
-        Upload insertion
+        {t('insertion.update')}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
@@ -116,7 +118,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="instrumentType"
           >
-            Instrument type
+            {t('insertion.instrument')}
           </label>
           <input
             {...register('instrumentType')}
@@ -133,7 +135,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="model"
           >
-            Model
+            {t('insertion.model')}
           </label>
           <input
             {...register('model')}
@@ -150,7 +152,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="rentalPrice"
           >
-            Rent price (€)
+            {t('insertion.rentprice')}
           </label>
           <input
             {...register('rentalPrice')}
@@ -167,7 +169,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="condition"
           >
-            Instrument condition
+            {t('insertion.condition')}
           </label>
           <select
             {...register('condition')}
@@ -179,9 +181,9 @@ const InsertionUpdateForm: React.FC = () => {
             <option value="" disabled>
               {insertion?.condition}
             </option>
-            <option value="new">Brand new</option>
-            <option value="good">Good</option>
-            <option value="used">Used with marks</option>
+            <option value="new">{t('insertion.new')}</option>
+            <option value="good">{t('insertion.good')}</option>
+            <option value="used">{t('insertion.used')}</option>
           </select>
         </div>
         <div>
@@ -189,7 +191,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="location"
           >
-            Pickup/delivery location
+            {t('insertion.delivery')}
           </label>
           <input
             {...register('location')}
@@ -206,7 +208,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="deliveryMethod"
           >
-            Delivery method
+            {t('insertion.deliverymethod')}
           </label>
           <select
             {...register('deliveryMethod')}
@@ -218,9 +220,9 @@ const InsertionUpdateForm: React.FC = () => {
             <option value="" disabled>
               {insertion?.deliveryMethod}
             </option>
-            <option value="pickup">Collection on site</option>
-            <option value="delivery">Home delivery</option>
-            <option value="shipping">Shipping</option>
+            <option value="pickup">{t('insertion.collection')}</option>
+            <option value="delivery">{t('insertion.homedelivery')}</option>
+            <option value="shipping">{t('insertion.shipping')}</option>
           </select>
         </div>
         <div>
@@ -228,7 +230,7 @@ const InsertionUpdateForm: React.FC = () => {
             htmlFor="image"
             className="block text-gray-700 font-medium mb-2"
           >
-            Insertion image
+            {t('insertion.image')}
           </label>
           <input
             type="file"
@@ -253,7 +255,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="notes"
           >
-            Notes
+            {t('insertion.description')}
           </label>
           <ReactQuill
             className="h-56 pb-16"
@@ -268,7 +270,7 @@ const InsertionUpdateForm: React.FC = () => {
           type="submit"
           className="w-full bg-green-600 text-white font-semibold py-2 rounded-md hover:bg-green-700"
         >
-          Update insertion
+          {t('insertion.updateinsertion')}
         </button>
       </form>
     </div>

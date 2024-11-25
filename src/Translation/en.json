@@ -1,0 +1,61 @@
+{
+  "navbar": {
+    "home": "Home",
+    "new": "New",
+    "logout": "Logout",
+    "register": "Register",
+    "login": "Login"
+  },
+
+  "home": {
+    "lastinsertions": "Last Insertions",
+    "button": "Load more insertions",
+    "buttonloading": "Loading..."
+  },
+
+  "drawer": {
+    "home": "Home",
+    "new": "New",
+    "logout": "Logout",
+    "register": "Register",
+    "login": "Login"
+  },
+
+  "signin": {
+    "register": "Register",
+    "email": "Enter your email",
+    "password": "Select a password",
+    "confirmpassword": "Confirm password",
+    "signin": "Sign In with Google"
+  },
+
+  "login": {
+    "email": "Enter your email",
+    "password": "Enter your password",
+    "login": "Log In",
+    "logingoogle": "Log In whith Google"
+  },
+
+  "insertion": {
+    "price": "Day",
+    "create": "Create new insertion",
+    "update": "Update insertion",
+    "instrument": "Type of instrument/gear",
+    "model": "Model",
+    "rentprice": "Rent price",
+    "condition": "Instrument/gear condition",
+    "select": "Select a condition",
+    "new": "Brand new",
+    "good": "Good",
+    "used": "Used with marks",
+    "delivery": "Pickup/delivery location",
+    "deliverymethod": "Delivery method",
+    "collection": "Collection on site",
+    "homedelivery": "Home delivery",
+    "shipping": "Shipping",
+    "image": "Instrument/gear image",
+    "description": "Description",
+    "save": "Save insertion",
+    "updateinsertion": "Update insertion"
+  }
+}

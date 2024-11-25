@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserSignIn } from './types';
 import { googleSignIn, signUp } from '../../auth';
+import { useTranslation } from 'react-i18next';
 
 const initialValue: UserSignIn = {
   email: '',
@@ -11,7 +12,7 @@ const initialValue: UserSignIn = {
 
 const UserSignUp: React.FC = () => {
   const [userInfo, setUserInfo] = useState<UserSignIn>(initialValue);
-
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,7 +38,7 @@ const UserSignUp: React.FC = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-700">
-          Register
+          {t('signin.register')}
         </h2>
         <form className="mt-4" onSubmit={handleSubmit}>
           <div>
@@ -48,7 +49,7 @@ const UserSignUp: React.FC = () => {
               id="id"
               type="text"
               className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
-              placeholder="Enter your email"
+              placeholder={t('signin.email')}
               value={userInfo.email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setUserInfo({ ...userInfo, email: e.target.value })
@@ -64,7 +65,7 @@ const UserSignUp: React.FC = () => {
               id="password"
               type="password"
               className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
-              placeholder="Enter your password"
+              placeholder={t('signin.password')}
               value={userInfo.password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setUserInfo({ ...userInfo, password: e.target.value })
@@ -80,7 +81,7 @@ const UserSignUp: React.FC = () => {
               id="confirmpassword"
               type="password"
               className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
-              placeholder="Confirm your password"
+              placeholder={t('signin.confirmpassword')}
               value={userInfo.confirmPassword}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setUserInfo({ ...userInfo, confirmPassword: e.target.value })
@@ -92,7 +93,7 @@ const UserSignUp: React.FC = () => {
             type="submit"
             className="w-full px-4 py-2 mt-6 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
           >
-            Register
+            {t('signin.register')}
           </button>
         </form>
         <div className="mt-6">
@@ -100,7 +101,7 @@ const UserSignUp: React.FC = () => {
             onClick={handleGoogleSignIn}
             className="flex items-center justify-center w-full px-4 py-2 text-sm font-semibold text-gray-700 bg-white border rounded-lg hover:bg-gray-100 focus:outline-none"
           >
-            Sign In with Google
+            {t('signin.signin')}
           </button>
         </div>
       </div>

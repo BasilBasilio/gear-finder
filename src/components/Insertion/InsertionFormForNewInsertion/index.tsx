@@ -7,6 +7,7 @@ import { useRef, useState } from 'react';
 import { useUserAuth } from '../../../context/userAuthContext';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useTranslation } from 'react-i18next';
 
 const InsertionForm: React.FC = () => {
   const { register, handleSubmit } = useForm<InsertionData>();
@@ -14,6 +15,7 @@ const InsertionForm: React.FC = () => {
   const [fileNames, setFileNames] = useState<string[]>([]);
   const user = useUserAuth();
   const [description, setDescription] = useState('');
+  const { t } = useTranslation();
 
   const modules = {
     toolbar: [
@@ -90,7 +92,7 @@ const InsertionForm: React.FC = () => {
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">
-        Create new insertion
+        {t('insertion.create')}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
@@ -98,7 +100,7 @@ const InsertionForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="instrumentType"
           >
-            Instrument type
+            {t('insertion.instrument')}
           </label>
           <input
             {...register('instrumentType')}
@@ -114,7 +116,7 @@ const InsertionForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="model"
           >
-            Model
+            {t('insertion.model')}
           </label>
           <input
             {...register('model')}
@@ -130,7 +132,7 @@ const InsertionForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="rentalPrice"
           >
-            Rent price (€)
+            {t('insertion.rentprice')}
           </label>
           <input
             {...register('rentalPrice')}
@@ -146,7 +148,7 @@ const InsertionForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="condition"
           >
-            Instrument condition
+            {t('insertion.condition')}
           </label>
           <select
             {...register('condition')}
@@ -156,11 +158,11 @@ const InsertionForm: React.FC = () => {
             required
           >
             <option value="" disabled>
-              Seleziona...
+              {t('insertion.select')}
             </option>
-            <option value="new">Brand new</option>
-            <option value="good">Good</option>
-            <option value="used">Used with marks</option>
+            <option value="new">{t('insertion.new')}</option>
+            <option value="good">{t('insertion.good')}</option>
+            <option value="used">{t('insertion.used')}</option>
           </select>
         </div>
         <div>
@@ -168,7 +170,7 @@ const InsertionForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="location"
           >
-            Pickup/delivery location
+            {t('insertion.delivery')}
           </label>
           <input
             {...register('location')}
@@ -184,7 +186,7 @@ const InsertionForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="deliveryMethod"
           >
-            Delivery method
+            {t('insertion.deliverymethod')}
           </label>
           <select
             {...register('deliveryMethod')}
@@ -194,11 +196,11 @@ const InsertionForm: React.FC = () => {
             required
           >
             <option value="" disabled>
-              Select...
+              {t('insertion.select')}
             </option>
-            <option value="pickup">Collection on site</option>
-            <option value="delivery">Home delivery</option>
-            <option value="shipping">Shipping</option>
+            <option value="pickup">{t('insertion.collection')}</option>
+            <option value="delivery">{t('insertion.homedelivery')}</option>
+            <option value="shipping">{t('insertion.shipping')}</option>
           </select>
         </div>
         <div>
@@ -206,7 +208,7 @@ const InsertionForm: React.FC = () => {
             htmlFor="image"
             className="block text-gray-700 font-medium mb-2"
           >
-            Insertion image
+            {t('insertion.image')}
           </label>
           <input
             type="file"
@@ -230,7 +232,7 @@ const InsertionForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="notes"
           >
-            Description
+            {t('insertion.description')}
           </label>
           <ReactQuill
             className="h-56 pb-16"
@@ -245,7 +247,7 @@ const InsertionForm: React.FC = () => {
           type="submit"
           className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700"
         >
-          Save insertion
+          {t('insertion.save')}
         </button>
       </form>
     </div>
