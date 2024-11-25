@@ -10,11 +10,13 @@ import { useUserAuth } from '../../../context/userAuthContext';
 import { MdDelete } from 'react-icons/md';
 import { IoArrowBack } from 'react-icons/io5';
 import { BsFillPencilFill } from 'react-icons/bs';
+import { useTranslation } from 'react-i18next';
 
 const InsertionDetail: React.FC = () => {
   const user = useUserAuth();
   const { objectId } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const getInsertionByInsertionId = async (objectId: string) => {
     try {
@@ -71,7 +73,7 @@ const InsertionDetail: React.FC = () => {
             <p className="text-gray-700 text-sm">{insertion?.instrumentType}</p>
             <p className="text-gray-700 text-sm">{insertion?.location}</p>
             <p className="text-blue-500 font-bold">
-              €{insertion?.rentalPrice}/day
+              €{insertion?.rentalPrice}/{t('insertion.price')}
             </p>
           </div>
           {user && (

@@ -1,0 +1,61 @@
+{
+  "navbar": {
+    "home": "Home",
+    "new": "Nuova",
+    "logout": "Esci",
+    "register": "Registrati",
+    "login": "Login"
+  },
+
+  "home": {
+    "lastinsertions": "Ultime inserzioni",
+    "button": "Carica altre inserzioni",
+    "buttonloading": "Caricamento..."
+  },
+
+  "drawer": {
+    "home": "Home",
+    "new": "Nuova",
+    "logout": "Esci",
+    "register": "Registrati",
+    "login": "Login"
+  },
+
+  "signin": {
+    "register": "Registrati",
+    "email": "Inserisci la mail",
+    "password": "Seleziona una password",
+    "confirmpassword": "Conferma password",
+    "signin": "Registrati con Google"
+  },
+
+  "login": {
+    "email": "Inserisci la tua mail",
+    "password": "Inserisci la tua password",
+    "login": "Entra",
+    "logingoogle": "Entra con Google"
+  },
+
+  "insertion": {
+    "price": "Giorno",
+    "create": "Crea una nuova inserzione",
+    "update": "Modifica l'inserzione",
+    "instrument": "Tipo di strumento/attrezzatura",
+    "model": "Modello",
+    "rentprice": "Prezzo noleggio",
+    "condition": "Condizione strumento/attrezzatura",
+    "select": "Seleziona la condizione",
+    "new": "Nuovo",
+    "good": "Buona",
+    "used": "Usato con segni",
+    "delivery": "Luogo di ritiro/consegna",
+    "deliverymethod": "Metodo consegna",
+    "collection": "Ritiro in loco",
+    "homedelivery": "Consegna a domicilio",
+    "shipping": "Spedizione",
+    "image": "Immagini strumento/attrezzatura",
+    "description": "Descrizione",
+    "save": "Salva inserzione",
+    "updateinsertion": "Modifica inserzione"
+  }
+}

@@ -6,10 +6,12 @@ import { useQuery } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import Loading from 'react-loading';
 import { IoArrowBack } from 'react-icons/io5';
+import { useTranslation } from 'react-i18next';
 
 const InsertionDisplay: React.FC = () => {
   const user = useUserAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const getData = async (userId: string) => {
     try {
@@ -75,7 +77,7 @@ const InsertionDisplay: React.FC = () => {
                   </p>
                   <p className="text-gray-700 text-sm">{insertion.location}</p>
                   <p className="text-blue-500 font-bold">
-                    €{insertion.rentalPrice}/day
+                    €{insertion.rentalPrice}/{t('insertion.price')}
                   </p>
                 </div>
               </div>

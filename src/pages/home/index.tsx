@@ -13,8 +13,10 @@ import { InsertionData } from '../../components/Insertion/InsertionFormForNewIns
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading';
+import { useTranslation } from 'react-i18next';
 
 const Home: React.FC = () => {
+  const { t } = useTranslation();
   const getData = async ({
     pageParam,
   }: {
@@ -65,7 +67,7 @@ const Home: React.FC = () => {
       <SearchBar />
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-4">
-          Last Insertions
+          {t('home.lastinsertions')}
         </h1>
         <ul className="space-y-4">
           {data?.pages.flatMap(page =>
@@ -97,7 +99,7 @@ const Home: React.FC = () => {
                         {insertion.location}
                       </p>
                       <p className="text-blue-500 font-bold">
-                        €{insertion.rentalPrice}/day
+                        €{insertion.rentalPrice}/{t('insertion.price')}
                       </p>
                     </div>
                   </div>
@@ -112,7 +114,9 @@ const Home: React.FC = () => {
             onClick={() => fetchNextPage()}
             className="bg-blue-500 text-white py-2 px-4 rounded disabled:opacity-50"
           >
-            {isFetchingNextPage ? 'Loading...' : 'Load more insertions'}
+            {isFetchingNextPage
+              ? `${t('home.buttonloading')}`
+              : `${t('home.button')}`}
           </button>
         </div>
       </div>

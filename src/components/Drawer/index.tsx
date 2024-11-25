@@ -5,11 +5,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../../context/userAuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../firebaseConfig';
+import { useTranslation } from 'react-i18next';
 
 const VaulDrawer: React.FC = () => {
   const user = useUserAuth();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation();
 
   const handleLogout = async () => {
     try {
@@ -55,14 +57,14 @@ const VaulDrawer: React.FC = () => {
               <ul className="space-y-4 text-zinc-900">
                 <li>
                   <Link to="/" className="flex items-center gap-2">
-                    Home
+                    {t('drawer.home')}
                   </Link>
                 </li>
                 {user ? (
                   <>
                     <li>
                       <Link to="/new" className="flex items-center gap-2">
-                        New
+                        {t('drawer.new')}
                       </Link>
                     </li>
                     <li>
@@ -71,7 +73,7 @@ const VaulDrawer: React.FC = () => {
                         onClick={handleLogout}
                         className="flex items-center gap-2 text-left w-full"
                       >
-                        Logout
+                        {t('drawer.login')}
                       </button>
                     </li>
                   </>
@@ -79,12 +81,12 @@ const VaulDrawer: React.FC = () => {
                   <>
                     <li>
                       <Link to="/register" className="flex items-center gap-2">
-                        Register
+                        {t('drawer.register')}
                       </Link>
                     </li>
                     <li>
                       <Link to="/login" className="flex items-center gap-2">
-                        Login
+                        {t('drawer.login')}
                       </Link>
                     </li>
                   </>

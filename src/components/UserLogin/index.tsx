@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserLogIn } from './types';
 import { googleSignIn, logIn } from '../../auth';
+import { useTranslation } from 'react-i18next';
 
 const initialValue: UserLogIn = {
   email: '',
@@ -11,6 +12,7 @@ const initialValue: UserLogIn = {
 const UserLogin: React.FC = () => {
   const [userLogInfo, setUserLogInfo] = useState<UserLogIn>(initialValue);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +42,7 @@ const UserLogin: React.FC = () => {
 
         <div className="w-full lg:w-1/2 p-6 lg:p-12">
           <h2 className="text-3xl font-bold text-center text-gray-700">
-            Login
+            {t('login.login')}
           </h2>
           <form className="mt-8" onSubmit={handleSubmit}>
             <div>
@@ -54,7 +56,7 @@ const UserLogin: React.FC = () => {
                 id="email"
                 type="text"
                 className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                placeholder="Enter your email"
+                placeholder={t('login.email')}
                 value={userLogInfo.email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setUserLogInfo({ ...userLogInfo, email: e.target.value })
@@ -73,7 +75,7 @@ const UserLogin: React.FC = () => {
                 id="password"
                 type="password"
                 className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-                placeholder="Enter your password"
+                placeholder={t('login.password')}
                 value={userLogInfo.password}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setUserLogInfo({ ...userLogInfo, password: e.target.value })
@@ -85,7 +87,7 @@ const UserLogin: React.FC = () => {
               type="submit"
               className="w-full px-4 py-2 mt-6 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
             >
-              Log In
+              {t('login.login')}
             </button>
           </form>
           <div className="mt-6">
@@ -93,7 +95,7 @@ const UserLogin: React.FC = () => {
               onClick={handleGoogleSignIn}
               className="flex items-center justify-center w-full px-4 py-2 text-sm font-semibold text-gray-700 bg-white border rounded-lg hover:bg-gray-100 focus:outline-none"
             >
-              Sign in with Google
+              {t('login.logingoogle')}
             </button>
           </div>
         </div>
