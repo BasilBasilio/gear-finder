@@ -9,7 +9,7 @@ import {
 } from 'firebase/firestore';
 import SearchBar from '../../components/Insertion/SearchBar';
 import { db } from '../../firebaseConfig';
-import { InsertionData } from '../../components/Insertion/InsertionFormForNewInsertion/types';
+import { InsertionData } from '../../components/Insertion/InstertionForm/InsertionFormForNewInsertion/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading';
@@ -96,7 +96,7 @@ const Home: React.FC = () => {
                         {insertion.instrumentType}
                       </p>
                       <p className="text-gray-700 text-sm">
-                        {insertion.location}
+                        {insertion.location?.label}
                       </p>
                       <p className="text-blue-500 font-bold">
                         €{insertion.rentalPrice}/{t('insertion.price')}

@@ -1,3 +1,8 @@
+export interface Location {
+  label: string;
+  value: Array<object>;
+}
+
 export interface InsertionData {
   id: string;
   objectId: string;
@@ -6,7 +11,7 @@ export interface InsertionData {
   model: string;
   rentalPrice: string;
   condition: string;
-  location: string;
+  location: Location;
   deliveryMethod: string;
   imageUrls: string[] | undefined;
   description: string;

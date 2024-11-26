@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
-import { InsertionData } from '../InsertionFormForNewInsertion/types';
+import { InsertionData } from '../InstertionForm/InsertionFormForNewInsertion/types';
 import { algoliaClient } from './algoliaConfig';
 import { useQuery } from '@tanstack/react-query';
 import Loading from 'react-loading';
@@ -65,7 +65,7 @@ const Results: React.FC = () => {
                       {insertion.instrumentType}
                     </p>
                     <p className="text-gray-700 text-sm">
-                      {insertion.description}
+                      {insertion.location?.label}
                     </p>
                     <p className="text-blue-500 font-bold">
                       €{insertion.rentalPrice}/day
