@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebaseConfig';
-import { InsertionData } from '../InsertionFormForNewInsertion/types';
+import { InsertionData } from '../InstertionForm/InsertionFormForNewInsertion/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import Loading from '../../Loading';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -71,7 +71,9 @@ const InsertionDetail: React.FC = () => {
             </h2>
 
             <p className="text-gray-700 text-sm">{insertion?.instrumentType}</p>
-            <p className="text-gray-700 text-sm">{insertion?.location}</p>
+            <p className="text-gray-700 text-sm">
+              {insertion?.location?.label}
+            </p>
             <p className="text-blue-500 font-bold">
               €{insertion?.rentalPrice}/{t('insertion.price')}
             </p>

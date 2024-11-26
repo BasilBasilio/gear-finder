@@ -5,7 +5,7 @@ import Error from '../pages/error/index.tsx';
 import UserProfile from '../pages/user/index.tsx';
 import ProtectedRoutes from '../components/ProtectedRoutes/index.tsx';
 import UserSignUp from '../components/UserSignIn/index.tsx';
-import InsertionForm from '../components/Insertion/InsertionFormForNewInsertion/index.tsx';
+import InsertionForm from '../components/Insertion/InstertionForm/InsertionFormForNewInsertion/index.tsx';
 import Login from '../pages/login/index.tsx';
 import Results from '../components/Insertion/ResultsOnSearch/index.tsx';
 import InsertionDetail from '../components/Insertion/InsertionDetailPage/index.tsx';

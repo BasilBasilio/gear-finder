@@ -1,6 +1,6 @@
 import { collection, query, getDocs, where } from 'firebase/firestore';
 import { db } from '../../../firebaseConfig';
-import { InsertionData } from '../InsertionFormForNewInsertion/types';
+import { InsertionData } from '../InstertionForm/InsertionFormForNewInsertion/types';
 import { useUserAuth } from '../../../context/userAuthContext';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
@@ -47,14 +47,14 @@ const InsertionDisplay: React.FC = () => {
     <div className="max-w-3xl mx-auto p-6">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-gray-900">Your insertions</h1>
-        <div className="flex items-center justify-end gap-2"></div>
+        <div className="flex items-center justify-end"></div>
       </div>
 
       <ul className="mt-6">
         {insertions?.map(insertion => (
           <li
             key={insertion.id}
-            className="bg-white border-2 rounded-lg transition-transform transform hover:scale-105"
+            className="bg-white border-2 rounded-lg transition-transform transform hover:scale-105 mb-4"
           >
             <Link
               to={`/insertion/${insertion.id}`}
@@ -75,7 +75,9 @@ const InsertionDisplay: React.FC = () => {
                   <p className="text-gray-700 text-sm">
                     {insertion.instrumentType}
                   </p>
-                  <p className="text-gray-700 text-sm">{insertion.location}</p>
+                  <p className="text-gray-700 text-sm">
+                    {insertion.location?.label}
+                  </p>
                   <p className="text-blue-500 font-bold">
                     €{insertion.rentalPrice}/{t('insertion.price')}
                   </p>
