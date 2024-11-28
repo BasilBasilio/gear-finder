@@ -92,7 +92,7 @@ const InsertionForm: React.FC = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+    <div className="max-w-2xl mx-auto mt-20 p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">
         {t('insertion.create')}
       </h2>
@@ -100,18 +100,37 @@ const InsertionForm: React.FC = () => {
         <div>
           <label
             className="block text-gray-700 font-medium mb-2"
-            htmlFor="instrumentType"
+            htmlFor="instrument"
           >
             {t('insertion.instrument')}
           </label>
-          <input
+          <select
             {...register('instrumentType')}
-            type="text"
-            id="instrumentType"
-            name="instrumentType"
+            id="instrument"
+            name="instrument"
             className="w-full border border-gray-300 rounded-md p-2"
             required
-          />
+          >
+            <option value="" disabled>
+              {t('insertion.selectInstrument')}
+            </option>
+            <option value="electricGuitar">
+              {t('insertion.electricGuitar')}
+            </option>
+            <option value="acousticGuitar">
+              {t('insertion.acousticGuitar')}
+            </option>
+            <option value="bass">{t('insertion.bass')}</option>
+            <option value="drum">{t('insertion.drum')}</option>
+            <option value="guitarPedal">{t('insertion.guitarPedal')}</option>
+            <option value="guitarAmp">{t('insertion.guitarAmp')}</option>
+            <option value="bassAmp">{t('insertion.bassAmp')}</option>
+            <option value="guitarCabinet">
+              {t('insertion.guitarCabinet')}
+            </option>
+            <option value="bassCabinet">{t('insertion.bassCabinet')}</option>
+            <option value="synth">{t('insertion.synth')}</option>
+          </select>
         </div>
         <div>
           <label
@@ -240,7 +259,7 @@ const InsertionForm: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700"
+          className="w-full bg-red-600 text-white font-semibold py-2 rounded-md hover:bg-red-700"
         >
           {t('insertion.save')}
         </button>

@@ -41,6 +41,7 @@
     "create": "Crea una nuova inserzione",
     "update": "Modifica l'inserzione",
     "instrument": "Tipo di strumento/attrezzatura",
+    "selectInstrument": "Seleziona un tipo",
     "model": "Modello",
     "rentprice": "Prezzo noleggio",
     "condition": "Condizione strumento/attrezzatura",
@@ -56,6 +57,16 @@
     "image": "Immagini strumento/attrezzatura",
     "description": "Descrizione",
     "save": "Salva inserzione",
-    "updateinsertion": "Modifica inserzione"
+    "updateinsertion": "Modifica inserzione",
+    "electricGuitar": "Chitarra Elettrica",
+    "acousticGuitar": "Chitarra Acustica",
+    "bass": "Basso",
+    "drum": "Batteria",
+    "guitarPedal": "Pedale Chitarra",
+    "guitarAmp": "Amplificatore Chitarra",
+    "bassAmp": "Amplificatore Basso",
+    "guitarCabinet": "Cassa Chitarra",
+    "bassCabinet": "Cassa Basso",
+    "synth": "Sintetizzatore"
   }
 }

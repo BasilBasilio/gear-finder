@@ -109,7 +109,7 @@ const InsertionUpdateForm: React.FC = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+    <div className="max-w-2xl mx-auto mt-20 p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">
         {t('insertion.update')}
       </h2>
@@ -117,19 +117,37 @@ const InsertionUpdateForm: React.FC = () => {
         <div>
           <label
             className="block text-gray-700 font-medium mb-2"
-            htmlFor="instrumentType"
+            htmlFor="instrument"
           >
             {t('insertion.instrument')}
           </label>
-          <input
+          <select
             {...register('instrumentType')}
-            type="text"
-            id="instrumentType"
-            name="instrumentType"
+            id="instrument"
+            name="instrument"
             className="w-full border border-gray-300 rounded-md p-2"
-            placeholder={insertion?.instrumentType}
             required
-          />
+          >
+            <option value="" disabled>
+              {t('insertion.selectInstrument')}
+            </option>
+            <option value="electricGuitar">
+              {t('insertion.electricGuitar')}
+            </option>
+            <option value="acousticGuitar">
+              {t('insertion.acousticGuitar')}
+            </option>
+            <option value="bass">{t('insertion.bass')}</option>
+            <option value="drum">{t('insertion.drum')}</option>
+            <option value="guitarPedal">{t('insertion.guitarPedal')}</option>
+            <option value="guitarAmp">{t('insertion.guitarAmp')}</option>
+            <option value="bassAmp">{t('insertion.bassAmp')}</option>
+            <option value="guitarCabinet">
+              {t('insertion.guitarCabinet')}
+            </option>
+            <option value="bassCabinet">{t('insertion.bassCabinet')}</option>
+            <option value="synth">{t('insertion.synth')}</option>
+          </select>
         </div>
         <div>
           <label
