@@ -37,7 +37,7 @@ const VaulDrawer: React.FC = () => {
         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
 
         <Drawer.Content
-          className="fixed right-0 top-0 bottom-0 z-10 outline-none w-screen max-w-md flex"
+          className="fixed right-0 top-0 bottom-0 z-10 outline-none w-screen max-w-md flex pt-10"
           style={
             { '--initial-transform': 'calc(100% + 8px)' } as React.CSSProperties
           }

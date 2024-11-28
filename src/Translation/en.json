@@ -41,6 +41,7 @@
     "create": "Create new insertion",
     "update": "Update insertion",
     "instrument": "Type of instrument/gear",
+    "selectInstrument": "Select a type",
     "model": "Model",
     "rentprice": "Rent price",
     "condition": "Instrument/gear condition",
@@ -56,6 +57,16 @@
     "image": "Instrument/gear image",
     "description": "Description",
     "save": "Save insertion",
-    "updateinsertion": "Update insertion"
+    "updateinsertion": "Update insertion",
+    "electricGuitar": "Electric Guitar",
+    "acousticGuitar": "Acoustic Guitar",
+    "bass": "Bass",
+    "drum": "Drum",
+    "guitarPedal": "Guitar Pedal",
+    "guitarAmp": "Guitar Amplifier",
+    "bassAmp": "Bass Amplifier",
+    "guitarCabinet": "Guitar Cabinet",
+    "bassCabinet": "Bass Cabinet",
+    "synth": "Synth"
   }
 }

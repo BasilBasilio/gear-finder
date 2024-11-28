@@ -4,11 +4,13 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { InsertionData } from '../InsertionData';
 import { db } from '../../../firebaseConfig';
 import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router';
 
 const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
 
 const AdvancedMarkerMap: React.FC = () => {
   const user = useUserAuth();
+  const navigate = useNavigate();
 
   const getData = async (userId: string) => {
     try {
@@ -36,10 +38,14 @@ const AdvancedMarkerMap: React.FC = () => {
     queryKey: ['insertions', 'byUser', user?.uid],
   });
 
+  const handleClick = (id: string) => {
+    navigate(`/insertion/${id}`);
+  };
+
   return (
     <APIProvider apiKey={apiKey}>
       <div className="flex items-center justify-center">
-        <div className="w-screen h-96">
+        <div className="w-screen h-screen">
           <Map
             style={{ width: '100vw', height: '100vh' }}
             className="w-full h-full"
@@ -48,17 +54,23 @@ const AdvancedMarkerMap: React.FC = () => {
             gestureHandling={'greedy'}
             disableDefaultUI={true}
             mapId={'a4a8b5c05baf8337'}
-            colorScheme="FOLLOW_SYSTEM"
-            renderingType="RASTER"
           >
             {insertions?.map(insertion => (
               <AdvancedMarker
                 key={insertion.id}
+                onClick={() => handleClick(insertion.id)}
                 position={{
                   lat: insertion.location?.lat,
                   lng: insertion.location?.lng,
                 }}
-              />
+              >
+                <img
+                  className="rounded-full border-2 border-black w-12 h-12 object-cover"
+                  src={insertion.imageUrls ? insertion.imageUrls[0] : undefined}
+                  width={50}
+                  height={50}
+                />
+              </AdvancedMarker>
             ))}
           </Map>
         </div>

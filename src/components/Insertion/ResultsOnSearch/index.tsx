@@ -1,12 +1,17 @@
-import { Link, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { InsertionData } from '../InsertionData';
 import { algoliaClient } from './algoliaConfig';
 import { useQuery } from '@tanstack/react-query';
 import Loading from 'react-loading';
+import { AdvancedMarker, APIProvider, Map } from '@vis.gl/react-google-maps';
+import SearchBar from '../SearchBar';
+
+const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
 
 const Results: React.FC = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('query');
+  const navigate = useNavigate();
 
   const getInsertions = async () => {
     try {
@@ -31,55 +36,55 @@ const Results: React.FC = () => {
     queryKey: ['insertions', 'byQuery', query],
   });
 
+  const handleClick = (id: string) => {
+    navigate(`/insertion/${id}`);
+  };
+
   return isLoading ? (
     <div className="flex items-center justify-center mt-20">
-      <Loading type="bars" color="#2563eb" height={30} width={30} />
+      <Loading type="bars" color="#e9222a" height={30} width={30} />
     </div>
   ) : (
-    <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4 text-gray-800">
-        Search results for: <span className="text-red-600">"{query}"</span>
-      </h1>
-      {(insertions ?? []).length > 0 ? (
-        <ul className="space-y-4">
-          {insertions?.map(insertion => (
-            <li
-              key={insertion.objectID}
-              className="bg-white border-2 rounded-lg transition-transform transform hover:scale-105"
+    <>
+      <APIProvider apiKey={apiKey}>
+        <div className="flex items-center justify-center">
+          <div className="w-screen h-screen">
+            <Map
+              style={{ width: '100vw', height: '100vh' }}
+              className="w-full h-full"
+              defaultCenter={{ lat: 41.902782, lng: 12.496366 }}
+              defaultZoom={6}
+              gestureHandling={'greedy'}
+              disableDefaultUI={true}
+              mapId={'a4a8b5c05baf8337'}
             >
-              <Link
-                to={`/insertion/${insertion.objectID}`}
-                className="flex flex-col sm:flex-row"
-              >
-                <img
-                  src={insertion.imageUrls?.[0]}
-                  alt="Instrument"
-                  className="w-full h-full max-w-[300px] max-h-[200px] rounded-l-lg"
-                />
-                <div className="flex items-start space-x-4 p-4">
-                  <div className="flex-1">
-                    <h2 className="text-lg font-semibold text-gray-900">
-                      {insertion.model}
-                    </h2>
-                    <p className="text-gray-700 text-sm">
-                      {insertion.instrumentType}
-                    </p>
-                    <p className="text-gray-700 text-sm">
-                      {insertion.location?.label}
-                    </p>
-                    <p className="text-blue-500 font-bold">
-                      €{insertion.rentalPrice}/day
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-red-600 font-medium">Nessun risultato trovato.</p>
-      )}
-    </div>
+              {insertions?.map(insertion => (
+                <AdvancedMarker
+                  key={insertion.objectID}
+                  onClick={() => handleClick(insertion.objectID)}
+                  position={{
+                    lat: insertion.location?.lat,
+                    lng: insertion.location?.lng,
+                  }}
+                >
+                  <img
+                    className="rounded-full border-2 border-black w-12 h-12 object-cover"
+                    src={
+                      insertion.imageUrls ? insertion.imageUrls[0] : undefined
+                    }
+                    width={50}
+                    height={50}
+                  />
+                </AdvancedMarker>
+              ))}
+            </Map>
+          </div>
+        </div>
+      </APIProvider>
+      <div className="absolute top-28 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5/12">
+        <SearchBar />
+      </div>
+    </>
   );
 };
 

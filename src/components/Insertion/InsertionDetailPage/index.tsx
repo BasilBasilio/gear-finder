@@ -56,24 +56,23 @@ const InsertionDetail: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center mt-20">
-        <Loading type="bars" color="#2563eb" height={30} width={30} />
+        <Loading type="bars" color="#e9222a" height={30} width={30} />
       </div>
     );
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-4">
+    <div className="max-w-3xl mt-20 mx-auto p-4">
       <div className="flex-col">
         <div className="flex justify-between items-end">
           <div className="flex-row">
             <h2 className="text-lg font-semibold text-gray-900">
               {insertion?.model}
             </h2>
-            <p className="text-gray-700 text-sm">{insertion?.instrumentType}</p>
             <p className="text-gray-700 text-sm">
               {insertion?.location?.label}
             </p>
-            <p className="text-blue-500 font-bold">
+            <p className="text-red-500 font-bold">
               €{insertion?.rentalPrice}/{t('insertion.price')}
             </p>
           </div>
