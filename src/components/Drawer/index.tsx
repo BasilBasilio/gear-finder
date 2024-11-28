@@ -29,7 +29,7 @@ const VaulDrawer: React.FC = () => {
       open={isOpen}
       onOpenChange={setIsOpen}
     >
-      <Drawer.Trigger className="p-2 bg-blue-500 text-white rounded-full mt-1">
+      <Drawer.Trigger className="p-2 bg-red-700 text-white rounded-full mt-1">
         <FaBars />
       </Drawer.Trigger>
 
@@ -48,7 +48,7 @@ const VaulDrawer: React.FC = () => {
                 Gearfinder Menu
               </Drawer.Title>
               <FaWindowClose
-                className="cursor-pointer text-blue-600 text-xl"
+                className="cursor-pointer text-red-600 text-xl"
                 onClick={() => setIsOpen(false)}
               />
             </div>

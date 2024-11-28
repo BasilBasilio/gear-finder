@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-blue-600 py-2 px-22">
+    <nav className="bg-red-600 py-2 px-22">
       <div className="flex justify-between mx-auto items-center py-4 px-24">
         <div className="hidden sm:flex text-white font-bold text-xl absolute left-10">
           Gearfinder

@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
-import { InsertionData } from '../InstertionForm/InsertionFormForNewInsertion/types';
+import { InsertionData } from '../InsertionData';
 import { algoliaClient } from './algoliaConfig';
 import { useQuery } from '@tanstack/react-query';
 import Loading from 'react-loading';
@@ -38,7 +38,7 @@ const Results: React.FC = () => {
   ) : (
     <div className="max-w-3xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4 text-gray-800">
-        Search results for: <span className="text-blue-600">"{query}"</span>
+        Search results for: <span className="text-red-600">"{query}"</span>
       </h1>
       {(insertions ?? []).length > 0 ? (
         <ul className="space-y-4">

@@ -48,7 +48,7 @@ const UserSignUp: React.FC = () => {
             <input
               id="id"
               type="text"
-              className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
+              className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-600"
               placeholder={t('signin.email')}
               value={userInfo.email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -64,7 +64,7 @@ const UserSignUp: React.FC = () => {
             <input
               id="password"
               type="password"
-              className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
+              className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-600"
               placeholder={t('signin.password')}
               value={userInfo.password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -80,7 +80,7 @@ const UserSignUp: React.FC = () => {
             <input
               id="confirmpassword"
               type="password"
-              className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-600"
+              className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-600"
               placeholder={t('signin.confirmpassword')}
               value={userInfo.confirmPassword}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -91,7 +91,7 @@ const UserSignUp: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="w-full px-4 py-2 mt-6 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
+            className="w-full px-4 py-2 mt-6 font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:bg-red-700"
           >
             {t('signin.register')}
           </button>
