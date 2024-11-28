@@ -36,7 +36,7 @@ const UserLogin: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="flex w-full max-w-4xl bg-white rounded-lg shadow-lg">
-        <div className="hidden lg:block lg:w-1/2 bg-blue-600 rounded-l-lg">
+        <div className="hidden lg:block lg:w-1/2 bg-red-600 rounded-l-lg">
           <div className="flex items-center justify-center h-full p-10"></div>
         </div>
 
@@ -55,7 +55,7 @@ const UserLogin: React.FC = () => {
               <input
                 id="email"
                 type="text"
-                className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
                 placeholder={t('login.email')}
                 value={userLogInfo.email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -74,7 +74,7 @@ const UserLogin: React.FC = () => {
               <input
                 id="password"
                 type="password"
-                className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
                 placeholder={t('login.password')}
                 value={userLogInfo.password}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -86,7 +86,7 @@ const UserLogin: React.FC = () => {
             <button
               data-testid="login"
               type="submit"
-              className="w-full px-4 py-2 mt-6 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+              className="w-full px-4 py-2 mt-6 font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600"
             >
               {t('login.login')}
             </button>

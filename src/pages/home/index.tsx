@@ -9,11 +9,12 @@ import {
 } from 'firebase/firestore';
 import SearchBar from '../../components/Insertion/SearchBar';
 import { db } from '../../firebaseConfig';
-import { InsertionData } from '../../components/Insertion/InstertionForm/InsertionFormForNewInsertion/types';
+import { InsertionData } from '../../components/Insertion/InsertionData';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import { useTranslation } from 'react-i18next';
+import AdvancedMarkerMap from '../../components/Insertion/AdvancedMarkerMap';
 
 const Home: React.FC = () => {
   const { t } = useTranslation();
@@ -65,6 +66,7 @@ const Home: React.FC = () => {
   ) : (
     <>
       <SearchBar />
+      <AdvancedMarkerMap />
       <div className="max-w-3xl mx-auto p-6">
         <h1 className="text-2xl font-bold text-gray-900 mb-4">
           {t('home.lastinsertions')}
@@ -98,7 +100,7 @@ const Home: React.FC = () => {
                       <p className="text-gray-700 text-sm">
                         {insertion.location?.label}
                       </p>
-                      <p className="text-blue-500 font-bold">
+                      <p className="text-red-500 font-bold">
                         €{insertion.rentalPrice}/{t('insertion.price')}
                       </p>
                     </div>
@@ -112,7 +114,7 @@ const Home: React.FC = () => {
           <button
             disabled={!hasNextPage || isFetchingNextPage}
             onClick={() => fetchNextPage()}
-            className="bg-blue-500 text-white py-2 px-4 rounded disabled:opacity-50"
+            className="bg-red-500 text-white py-2 px-4 rounded disabled:opacity-50"
           >
             {isFetchingNextPage
               ? `${t('home.buttonloading')}`

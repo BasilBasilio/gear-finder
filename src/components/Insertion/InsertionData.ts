@@ -1,6 +1,7 @@
 export interface Location {
   label: string;
-  value: Array<object>;
+  lat: number;
+  lng: number;
 }
 
 export interface InsertionData {

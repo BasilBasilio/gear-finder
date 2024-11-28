@@ -18,7 +18,7 @@ const SearchBar: React.FC = () => {
       <div className="relative">
         <input
           type="text"
-          className="w-full p-3 pl-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 pl-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500"
           value={query}
           placeholder="Search insertions..."
           onChange={e => {

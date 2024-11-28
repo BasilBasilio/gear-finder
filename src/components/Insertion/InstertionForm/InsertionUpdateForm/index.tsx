@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { InsertionData } from '../InsertionFormForNewInsertion/types';
+import { InsertionData } from '../../InsertionData';
 import { doc, getDoc, Timestamp, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../../../../firebaseConfig';
 import { useRef, useState } from 'react';
