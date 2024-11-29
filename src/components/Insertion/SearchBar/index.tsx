@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaSearch } from 'react-icons/fa';
 import { useNavigate } from 'react-router';
 
 const SearchBar: React.FC = () => {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -20,7 +22,7 @@ const SearchBar: React.FC = () => {
           type="text"
           className="w-full p-3 pl-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500"
           value={query}
-          placeholder="Search insertions..."
+          placeholder={t('searchbar.search')}
           onChange={e => {
             setQuery(e.target.value);
           }}

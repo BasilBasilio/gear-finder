@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserLogIn } from './types';
-import { googleSignIn, logIn } from '../../auth';
+import { logIn } from '../../auth';
 import { useTranslation } from 'react-i18next';
 
 const initialValue: UserLogIn = {
@@ -24,14 +24,14 @@ const UserLogin: React.FC = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      await googleSignIn();
-      navigate('/');
-    } catch (error) {
-      console.log('Error', error);
-    }
-  };
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     await googleSignIn();
+  //     navigate('/');
+  //   } catch (error) {
+  //     console.log('Error', error);
+  //   }
+  // };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -91,14 +91,14 @@ const UserLogin: React.FC = () => {
               {t('login.login')}
             </button>
           </form>
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <button
               onClick={handleGoogleSignIn}
               className="flex items-center justify-center w-full px-4 py-2 text-sm font-semibold text-gray-700 bg-white border rounded-lg hover:bg-gray-100 focus:outline-none"
             >
               {t('login.logingoogle')}
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
