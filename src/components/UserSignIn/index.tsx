@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserSignIn } from './types';
-import { googleSignIn, signUp } from '../../auth';
+import { signUp } from '../../auth';
 import { useTranslation } from 'react-i18next';
 import { updateProfile } from 'firebase/auth';
 
@@ -29,14 +29,14 @@ const UserSignUp: React.FC = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      await googleSignIn();
-      navigate('/');
-    } catch (error) {
-      console.log('Error', error);
-    }
-  };
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     await googleSignIn();
+  //     navigate('/');
+  //   } catch (error) {
+  //     console.log('Error', error);
+  //   }
+  // };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
