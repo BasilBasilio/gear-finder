@@ -13,16 +13,6 @@ import Update from '../pages/update/index.tsx';
 
 export const router = createBrowserRouter([
   {
-    path: '/register',
-    element: <UserSignUp />,
-    errorElement: <Error />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-    errorElement: <Error />,
-  },
-  {
     path: '/',
     element: <Layout />,
     children: [
@@ -49,6 +39,16 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+        errorElement: <Error />,
+      },
+      {
+        path: '/register',
+        element: <UserSignUp />,
+        errorElement: <Error />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
         errorElement: <Error />,
       },
       {

@@ -91,14 +91,14 @@ const UserLogin: React.FC = () => {
               {t('login.login')}
             </button>
           </form>
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <button
               onClick={handleGoogleSignIn}
               className="flex items-center justify-center w-full px-4 py-2 text-sm font-semibold text-gray-700 bg-white border rounded-lg hover:bg-gray-100 focus:outline-none"
             >
               {t('login.logingoogle')}
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -13,6 +13,10 @@
     "buttonloading": "Loading..."
   },
 
+  "searchbar": {
+    "search": "Search insertions..."
+  },
+
   "drawer": {
     "home": "Home",
     "new": "New",
@@ -23,6 +27,7 @@
 
   "signin": {
     "register": "Register",
+    "username": "Enter a username",
     "email": "Enter your email",
     "password": "Select a password",
     "confirmpassword": "Confirm password",

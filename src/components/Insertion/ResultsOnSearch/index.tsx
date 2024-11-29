@@ -81,7 +81,10 @@ const Results: React.FC = () => {
           </div>
         </div>
       </APIProvider>
-      <div className="absolute top-28 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5/12">
+      <div
+        className="absolute top-28 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80
+  sm:top-28 sm:w-10/12"
+      >
         <SearchBar />
       </div>
     </>

@@ -1,5 +1,12 @@
 import { Drawer } from 'vaul';
-import { FaBars, FaWindowClose } from 'react-icons/fa';
+import {
+  FaBars,
+  FaCashRegister,
+  FaHome,
+  FaNewspaper,
+  FaSignInAlt,
+  FaSignOutAlt,
+} from 'react-icons/fa';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../../context/userAuthContext';
@@ -10,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 const VaulDrawer: React.FC = () => {
   const user = useUserAuth();
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const { t } = useTranslation();
 
   const handleLogout = async () => {
@@ -23,12 +30,7 @@ const VaulDrawer: React.FC = () => {
   };
 
   return (
-    <Drawer.Root
-      direction="right"
-      dismissible={false}
-      open={isOpen}
-      onOpenChange={setIsOpen}
-    >
+    <Drawer.Root open={open} onOpenChange={setOpen}>
       <Drawer.Trigger className="p-2 bg-red-700 text-white rounded-full mt-1">
         <FaBars />
       </Drawer.Trigger>
@@ -36,27 +38,24 @@ const VaulDrawer: React.FC = () => {
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
 
-        <Drawer.Content
-          className="fixed right-0 top-0 bottom-0 z-10 outline-none w-screen max-w-md flex pt-10"
-          style={
-            { '--initial-transform': 'calc(100% + 8px)' } as React.CSSProperties
-          }
-        >
-          <div className="bg-zinc-50 h-full w-full p-5 flex flex-col rounded-l-lg shadow-lg">
-            <div className="flex justify-between items-center mb-4">
+        <Drawer.Content className="bg-gray-100 flex flex-col rounded-t-[10px] mt-24 h-fit fixed bottom-0 left-0 right-0 outline-none">
+          <div className="p-4 bg-white rounded-t-[10px] flex-1">
+            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300 mb-4" />
+            <div className="max-w-md w-auto">
               <Drawer.Title className="font-medium text-lg text-zinc-900">
-                Gearfinder Menu
+                {user?.email ?? 'Gearfinder'}
+                <hr className="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
               </Drawer.Title>
-              <FaWindowClose
-                className="cursor-pointer text-red-600 text-xl"
-                onClick={() => setIsOpen(false)}
-              />
             </div>
 
             <Drawer.Description>
               <ul className="space-y-4 text-zinc-900">
                 <li>
-                  <Link to="/" className="flex items-center gap-2">
+                  <Link
+                    to="/"
+                    className="flex items-center gap-2 hover:opacity-30"
+                  >
+                    <FaHome />
                     {t('drawer.home')}
                   </Link>
                 </li>
@@ -64,6 +63,7 @@ const VaulDrawer: React.FC = () => {
                   <>
                     <li>
                       <Link to="/new" className="flex items-center gap-2">
+                        <FaNewspaper />
                         {t('drawer.new')}
                       </Link>
                     </li>
@@ -73,20 +73,29 @@ const VaulDrawer: React.FC = () => {
                         onClick={handleLogout}
                         className="flex items-center gap-2 text-left w-full"
                       >
-                        {t('drawer.login')}
+                        <FaSignOutAlt />
+                        {t('drawer.logout')}
                       </button>
                     </li>
                   </>
                 ) : (
                   <>
                     <li>
-                      <Link to="/register" className="flex items-center gap-2">
-                        {t('drawer.register')}
+                      <Link
+                        to="/login"
+                        className="flex items-center gap-2 hover:opacity-30"
+                      >
+                        <FaSignInAlt />
+                        {t('drawer.login')}
                       </Link>
                     </li>
                     <li>
-                      <Link to="/login" className="flex items-center gap-2">
-                        {t('drawer.login')}
+                      <Link
+                        to="/register"
+                        className="flex items-center gap-2 mb-6"
+                      >
+                        <FaCashRegister />
+                        {t('drawer.register')}
                       </Link>
                     </li>
                   </>

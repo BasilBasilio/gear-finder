@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { UserSignIn } from './types';
 import { googleSignIn, signUp } from '../../auth';
 import { useTranslation } from 'react-i18next';
+import { updateProfile } from 'firebase/auth';
 
 const initialValue: UserSignIn = {
   email: '',
+  username: '',
   password: '',
   confirmPassword: '',
 };
@@ -18,7 +20,9 @@ const UserSignUp: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await signUp(userInfo.email, userInfo.password);
+      const credential = await signUp(userInfo.email, userInfo.password);
+      const user = credential.user;
+      await updateProfile(user, { displayName: userInfo.username });
       navigate('/');
     } catch (error) {
       console.log('Error', error);
@@ -53,6 +57,25 @@ const UserSignUp: React.FC = () => {
               value={userInfo.email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setUserInfo({ ...userInfo, email: e.target.value })
+              }
+              required
+            />
+          </div>
+          <div className="mt-4">
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Username
+            </label>
+            <input
+              id="username"
+              type="text"
+              className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
+              placeholder={t('signin.username')}
+              value={userInfo.username}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUserInfo({ ...userInfo, username: e.target.value })
               }
               required
             />
@@ -96,14 +119,14 @@ const UserSignUp: React.FC = () => {
             {t('signin.register')}
           </button>
         </form>
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <button
             onClick={handleGoogleSignIn}
             className="flex items-center justify-center w-full px-4 py-2 text-sm font-semibold text-gray-700 bg-white border rounded-lg hover:bg-gray-100 focus:outline-none"
           >
             {t('signin.signin')}
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

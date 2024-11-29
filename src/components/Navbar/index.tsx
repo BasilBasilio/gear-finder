@@ -45,11 +45,11 @@ const Navbar: React.FC = () => {
           G
           <FaGuitar className="mt-0.5" />
         </div>
-        <ul className="hidden md:flex gap-8 ml-auto mr-6 text-white cursor-pointer">
+        <ul className="hidden md:flex gap-8 ml-auto items-end text-white cursor-pointer">
           <button onClick={() => onClickLanguageChange('ita')}>ITA</button>
           <button onClick={() => onClickLanguageChange('en')}>EN</button>
           <li>
-            <Link to="/" className="flex items-center gap-2 mt-1 paraStyle">
+            <Link to="/" className="flex items-center gap-2 mt-1">
               {t('navbar.home')}
               <FaHome />
             </Link>
@@ -74,7 +74,7 @@ const Navbar: React.FC = () => {
               </li>
               <li>
                 <Link to="/user" className="flex items-center gap-2 mt-1">
-                  <span>{user.email}</span>
+                  <span>{user.displayName}</span>
                   <FaUser />
                 </Link>
               </li>
