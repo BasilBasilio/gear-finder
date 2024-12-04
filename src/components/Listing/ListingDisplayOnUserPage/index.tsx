@@ -15,7 +15,10 @@ const ListingDisplay: React.FC = () => {
 
   const getData = async (userId: string) => {
     try {
-      const q = query(collection(db, 'listing'), where('userId', '==', userId));
+      const q = query(
+        collection(db, 'listings'),
+        where('userId', '==', userId),
+      );
       const querySnapshot = await getDocs(q);
       const listings = querySnapshot.docs.map(doc => {
         const docData = doc.data();
@@ -35,6 +38,8 @@ const ListingDisplay: React.FC = () => {
     queryFn: () => getData(user?.uid || ''),
     queryKey: ['listings', 'byUser', user?.uid],
   });
+
+  console.log(listings);
 
   return isLoading ? (
     <div className="flex items-center justify-center mt-20">
