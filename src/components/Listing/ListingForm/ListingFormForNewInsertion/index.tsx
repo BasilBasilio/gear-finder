@@ -1,22 +1,20 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { InsertionData } from '../../InsertionData';
-import { doc, getDoc, Timestamp, updateDoc } from 'firebase/firestore';
+import { ListingData } from '../../ListingData';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db, storage } from '../../../../firebaseConfig';
 import { useRef, useState } from 'react';
 import { useUserAuth } from '../../../../context/userAuthContext';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { useTranslation } from 'react-i18next';
 import GooglePlacesAutocompleteComponent from '../GooglePlacesAutocompleteComponent';
 
-const InsertionUpdateForm: React.FC = () => {
-  const { register, handleSubmit, setValue } = useForm<InsertionData>();
+const ListingForm: React.FC = () => {
+  const { register, handleSubmit, setValue } = useForm<ListingData>();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [fileNames, setFileNames] = useState<string[]>([]);
   const user = useUserAuth();
-  const { objectId } = useParams();
   const [description, setDescription] = useState('');
   const { t } = useTranslation();
 
@@ -50,16 +48,6 @@ const InsertionUpdateForm: React.FC = () => {
     }
   };
 
-  const getInsertionByInsertionId = async (objectId: string) => {
-    try {
-      const insertionRef = doc(db, `insertions/${objectId}`);
-      const docSnap = await getDoc(insertionRef);
-      return docSnap.data() as InsertionData;
-    } catch (error) {
-      console.error('Error fetching documents:', error);
-    }
-  };
-
   const uploadFiles = async (files: File[]): Promise<string[]> => {
     const uploadPromises = files.map(async file => {
       const storageRef = ref(storage, `images/${file.name}`);
@@ -76,42 +64,37 @@ const InsertionUpdateForm: React.FC = () => {
     return downloadUrls.filter((url): url is string => url !== null);
   };
 
-  const updateInsertion = async (data: InsertionData) => {
+  const handleProcedureContentChange = (description: string) => {
+    setDescription(description);
+  };
+
+  const addListing = async (data: ListingData) => {
     try {
-      const insertionRef = doc(db, `insertions/${objectId}`);
-      await updateDoc(insertionRef, {
+      await addDoc(collection(db, 'listings'), {
         ...data,
+        description: description,
         userId: user?.uid,
         createdAt: Timestamp.now(),
       });
-      alert('Insertion updated successfully');
+      alert('Listing saved successfully');
     } catch (error) {
       console.error('Error: ', error);
     }
   };
 
-  const handleProcedureContentChange = (description: string) => {
-    setDescription(description);
-  };
-
-  const { data: insertion } = useQuery({
-    queryFn: () => getInsertionByInsertionId(objectId || ''),
-    queryKey: ['insertions', 'byInsertionId', objectId],
-  });
-
-  const onSubmit: SubmitHandler<InsertionData> = async data => {
+  const onSubmit: SubmitHandler<ListingData> = async data => {
     const files = fileInputRef.current?.files;
     if (files && files.length > 0) {
       const fileArray = Array.from(files);
       const imageUrls = await uploadFiles(fileArray);
-      await updateInsertion({ ...data, imageUrls });
+      await addListing({ ...data, imageUrls });
     }
   };
 
   return (
     <div className="max-w-2xl mx-auto mt-20 p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold text-gray-800 mb-6">
-        {t('insertion.update')}
+        {t('listing.create')}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
@@ -119,7 +102,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="instrument"
           >
-            {t('insertion.instrument')}
+            {t('listing.instrument')}
           </label>
           <select
             {...register('instrumentType')}
@@ -129,24 +112,22 @@ const InsertionUpdateForm: React.FC = () => {
             required
           >
             <option value="" disabled>
-              {t('insertion.selectInstrument')}
+              {t('listing.selectInstrument')}
             </option>
             <option value="electricGuitar">
-              {t('insertion.electricGuitar')}
+              {t('listing.electricGuitar')}
             </option>
             <option value="acousticGuitar">
-              {t('insertion.acousticGuitar')}
+              {t('listing.acousticGuitar')}
             </option>
-            <option value="bass">{t('insertion.bass')}</option>
-            <option value="drum">{t('insertion.drum')}</option>
-            <option value="guitarPedal">{t('insertion.guitarPedal')}</option>
-            <option value="guitarAmp">{t('insertion.guitarAmp')}</option>
-            <option value="bassAmp">{t('insertion.bassAmp')}</option>
-            <option value="guitarCabinet">
-              {t('insertion.guitarCabinet')}
-            </option>
-            <option value="bassCabinet">{t('insertion.bassCabinet')}</option>
-            <option value="synth">{t('insertion.synth')}</option>
+            <option value="bass">{t('listing.bass')}</option>
+            <option value="drum">{t('listing.drum')}</option>
+            <option value="guitarPedal">{t('listing.guitarPedal')}</option>
+            <option value="guitarAmp">{t('listing.guitarAmp')}</option>
+            <option value="bassAmp">{t('listing.bassAmp')}</option>
+            <option value="guitarCabinet">{t('listing.guitarCabinet')}</option>
+            <option value="bassCabinet">{t('listing.bassCabinet')}</option>
+            <option value="synth">{t('listing.synth')}</option>
           </select>
         </div>
         <div>
@@ -154,7 +135,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="model"
           >
-            {t('insertion.model')}
+            {t('listing.model')}
           </label>
           <input
             {...register('model')}
@@ -162,7 +143,6 @@ const InsertionUpdateForm: React.FC = () => {
             id="model"
             name="model"
             className="w-full border border-gray-300 rounded-md p-2"
-            placeholder={insertion?.model}
             required
           />
         </div>
@@ -171,7 +151,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="rentalPrice"
           >
-            {t('insertion.rentprice')}
+            {t('listing.rentprice')}
           </label>
           <input
             {...register('rentalPrice')}
@@ -179,7 +159,6 @@ const InsertionUpdateForm: React.FC = () => {
             id="rentalPrice"
             name="rentalPrice"
             className="w-full border border-gray-300 rounded-md p-2"
-            placeholder={`${insertion?.rentalPrice}€/Day`}
             required
           />
         </div>
@@ -188,7 +167,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="condition"
           >
-            {t('insertion.condition')}
+            {t('listing.condition')}
           </label>
           <select
             {...register('condition')}
@@ -198,11 +177,11 @@ const InsertionUpdateForm: React.FC = () => {
             required
           >
             <option value="" disabled>
-              {insertion?.condition}
+              {t('listing.select')}
             </option>
-            <option value="new">{t('insertion.new')}</option>
-            <option value="good">{t('insertion.good')}</option>
-            <option value="used">{t('insertion.used')}</option>
+            <option value="new">{t('listing.new')}</option>
+            <option value="good">{t('listing.good')}</option>
+            <option value="used">{t('listing.used')}</option>
           </select>
         </div>
         <div>
@@ -210,7 +189,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="delivery"
           >
-            {t('insertion.delivery')}
+            {t('listing.delivery')}
           </label>
           <GooglePlacesAutocompleteComponent setValue={setValue} />
         </div>
@@ -219,7 +198,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="deliveryMethod"
           >
-            {t('insertion.deliverymethod')}
+            {t('listing.deliverymethod')}
           </label>
           <select
             {...register('deliveryMethod')}
@@ -229,11 +208,11 @@ const InsertionUpdateForm: React.FC = () => {
             required
           >
             <option value="" disabled>
-              {insertion?.deliveryMethod}
+              {t('listing.select')}
             </option>
-            <option value="pickup">{t('insertion.collection')}</option>
-            <option value="delivery">{t('insertion.homedelivery')}</option>
-            <option value="shipping">{t('insertion.shipping')}</option>
+            <option value="pickup">{t('listing.collection')}</option>
+            <option value="delivery">{t('listing.homedelivery')}</option>
+            <option value="shipping">{t('listing.shipping')}</option>
           </select>
         </div>
         <div>
@@ -241,7 +220,7 @@ const InsertionUpdateForm: React.FC = () => {
             htmlFor="image"
             className="block text-gray-700 font-medium mb-2"
           >
-            {t('insertion.image')}
+            {t('listing.image')}
           </label>
           <input
             type="file"
@@ -250,7 +229,6 @@ const InsertionUpdateForm: React.FC = () => {
             multiple
             className="w-full border border-gray-300 rounded-md p-2"
             onChange={handleFileChange}
-            placeholder={insertion?.imageUrls?.[0]}
             required
           />
           {fileNames.length > 0 && (
@@ -266,7 +244,7 @@ const InsertionUpdateForm: React.FC = () => {
             className="block text-gray-700 font-medium mb-2"
             htmlFor="notes"
           >
-            {t('insertion.description')}
+            {t('listing.description')}
           </label>
           <ReactQuill
             className="h-56 pb-16"
@@ -279,13 +257,13 @@ const InsertionUpdateForm: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-green-600 text-white font-semibold py-2 rounded-md hover:bg-green-700"
+          className="w-full bg-red-600 text-white font-semibold py-2 rounded-md hover:bg-red-700"
         >
-          {t('insertion.updateinsertion')}
+          {t('listing.save')}
         </button>
       </form>
     </div>
   );
 };
 
-export default InsertionUpdateForm;
+export default ListingForm;

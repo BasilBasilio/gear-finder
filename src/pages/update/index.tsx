@@ -1,7 +1,7 @@
-import InsertionUpdateForm from '../../components/Insertion/InstertionForm/InsertionUpdateForm';
+import ListingUpdateForm from '../../components/Listing/ListingForm/ListingUpdateForm';
 
 const Update: React.FC = () => {
-  return <InsertionUpdateForm />;
+  return <ListingUpdateForm />;
 };
 
 export default Update;

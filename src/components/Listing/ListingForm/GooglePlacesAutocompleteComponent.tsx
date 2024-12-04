@@ -4,12 +4,12 @@ import GooglePlacesAutocomplete, {
   getLatLng,
 } from 'react-google-places-autocomplete';
 import { UseFormSetValue } from 'react-hook-form';
-import { InsertionData } from '../InsertionData';
+import { ListingData } from '../ListingData';
 
 const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
 
 type Props = {
-  setValue: UseFormSetValue<InsertionData>;
+  setValue: UseFormSetValue<ListingData>;
 };
 
 const GooglePlacesAutocompleteComponent: React.FC<Props> = ({ setValue }) => {

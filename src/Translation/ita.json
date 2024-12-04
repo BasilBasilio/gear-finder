@@ -3,12 +3,12 @@
     "home": "Home",
     "new": "Nuova",
     "logout": "Esci",
-    "register": "Registrati",
+    "signup": "Registrati",
     "login": "Login"
   },
 
   "home": {
-    "lastinsertions": "Ultime inserzioni",
+    "lastlistings": "Ultime inserzioni",
     "button": "Carica altre inserzioni",
     "buttonloading": "Caricamento..."
   },
@@ -21,17 +21,17 @@
     "home": "Home",
     "new": "Nuova",
     "logout": "Esci",
-    "register": "Registrati",
+    "signup": "Registrati",
     "login": "Login"
   },
 
-  "signin": {
-    "register": "Registrati",
+  "signup": {
+    "signup": "Registrati",
     "username": "Inserisci un nome utente",
     "email": "Inserisci la mail",
     "password": "Seleziona una password",
     "confirmpassword": "Conferma password",
-    "signin": "Registrati con Google"
+    "signupwithgoogle": "Registrati con Google"
   },
 
   "login": {
@@ -41,7 +41,7 @@
     "logingoogle": "Entra con Google"
   },
 
-  "insertion": {
+  "listing": {
     "price": "Giorno",
     "create": "Crea una nuova inserzione",
     "update": "Modifica l'inserzione",
@@ -62,7 +62,7 @@
     "image": "Immagini strumento/attrezzatura",
     "description": "Descrizione",
     "save": "Salva inserzione",
-    "updateinsertion": "Modifica inserzione",
+    "updateListing": "Modifica inserzione",
     "electricGuitar": "Chitarra Elettrica",
     "acousticGuitar": "Chitarra Acustica",
     "bass": "Basso",

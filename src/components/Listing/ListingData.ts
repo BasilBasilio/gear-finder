@@ -4,7 +4,7 @@ export interface Location {
   lng: number;
 }
 
-export interface InsertionData {
+export interface ListingData {
   id: string;
   objectId: string;
   createdAt: string;

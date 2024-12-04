@@ -3,35 +3,35 @@
     "home": "Home",
     "new": "New",
     "logout": "Logout",
-    "register": "Register",
+    "signup": "Sign Up",
     "login": "Login"
   },
 
   "home": {
-    "lastinsertions": "Last Insertions",
-    "button": "Load more insertions",
+    "lastlistings": "Last Listing",
+    "button": "Load more listings",
     "buttonloading": "Loading..."
   },
 
   "searchbar": {
-    "search": "Search insertions..."
+    "search": "Search listings..."
   },
 
   "drawer": {
     "home": "Home",
     "new": "New",
     "logout": "Logout",
-    "register": "Register",
+    "signup": "Sign Up",
     "login": "Login"
   },
 
-  "signin": {
-    "register": "Register",
+  "signup": {
+    "signup": "Sign Up",
     "username": "Enter a username",
     "email": "Enter your email",
     "password": "Select a password",
     "confirmpassword": "Confirm password",
-    "signin": "Sign In with Google"
+    "signupwithgoogle": "Sign In with Google"
   },
 
   "login": {
@@ -41,10 +41,10 @@
     "logingoogle": "Log In whith Google"
   },
 
-  "insertion": {
+  "listing": {
     "price": "Day",
-    "create": "Create new insertion",
-    "update": "Update insertion",
+    "create": "Create new listing",
+    "update": "Update listing",
     "instrument": "Type of instrument/gear",
     "selectInstrument": "Select a type",
     "model": "Model",
@@ -61,8 +61,8 @@
     "shipping": "Shipping",
     "image": "Instrument/gear image",
     "description": "Description",
-    "save": "Save insertion",
-    "updateinsertion": "Update insertion",
+    "save": "Save listing",
+    "updateListing": "Update listing",
     "electricGuitar": "Electric Guitar",
     "acousticGuitar": "Acoustic Guitar",
     "bass": "Bass",

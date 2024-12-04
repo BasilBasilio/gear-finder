@@ -91,7 +91,7 @@ const VaulDrawer: React.FC = () => {
                     </li>
                     <li>
                       <Link
-                        to="/register"
+                        to="/signup"
                         className="flex items-center gap-2 mb-6"
                       >
                         <FaCashRegister />
