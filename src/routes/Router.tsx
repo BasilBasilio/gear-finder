@@ -5,10 +5,10 @@ import Error from '../pages/error/index.tsx';
 import UserProfile from '../pages/user/index.tsx';
 import ProtectedRoutes from '../components/ProtectedRoutes/index.tsx';
 import UserSignUp from '../components/UserSignIn/index.tsx';
-import InsertionForm from '../components/Insertion/InstertionForm/InsertionFormForNewInsertion/index.tsx';
+import ListingForm from '../components/Listing/ListingForm/ListingFormForNewListing/index.tsx';
 import Login from '../pages/login/index.tsx';
-import Results from '../components/Insertion/ResultsOnSearch/index.tsx';
-import InsertionDetail from '../components/Insertion/InsertionDetailPage/index.tsx';
+import Results from '../components/Listing/ResultsOnSearch/index.tsx';
+import ListingDetail from '../components/Listing/ListingDetailPage/index.tsx';
 import Update from '../pages/update/index.tsx';
 
 export const router = createBrowserRouter([
@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/new',
-            element: <InsertionForm />,
+            element: <ListingForm />,
             errorElement: <Error />,
           },
           {
@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        path: '/register',
+        path: '/signup',
         element: <UserSignUp />,
         errorElement: <Error />,
       },
@@ -52,8 +52,8 @@ export const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        path: '/insertion/:objectId',
-        element: <InsertionDetail />,
+        path: '/listing/:objectId',
+        element: <ListingDetail />,
         errorElement: <Error />,
       },
       {

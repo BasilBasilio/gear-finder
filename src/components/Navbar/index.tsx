@@ -82,8 +82,8 @@ const Navbar: React.FC = () => {
           ) : (
             <>
               <li>
-                <Link to="/register" className="flex items-center gap-2 mt-1">
-                  {t('navbar.register')}
+                <Link to="/signup" className="flex items-center gap-2 mt-1">
+                  {t('navbar.signup')}
                   <FaCashRegister />
                 </Link>
               </li>

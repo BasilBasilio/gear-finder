@@ -42,7 +42,7 @@ const UserSignUp: React.FC = () => {
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center text-gray-700">
-          {t('signin.register')}
+          {t('signup.signup')}
         </h2>
         <form className="mt-4" onSubmit={handleSubmit}>
           <div>
@@ -53,7 +53,7 @@ const UserSignUp: React.FC = () => {
               id="id"
               type="text"
               className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-600"
-              placeholder={t('signin.email')}
+              placeholder={t('signup.email')}
               value={userInfo.email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setUserInfo({ ...userInfo, email: e.target.value })
@@ -72,7 +72,7 @@ const UserSignUp: React.FC = () => {
               id="username"
               type="text"
               className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
-              placeholder={t('signin.username')}
+              placeholder={t('signup.username')}
               value={userInfo.username}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setUserInfo({ ...userInfo, username: e.target.value })
@@ -88,7 +88,7 @@ const UserSignUp: React.FC = () => {
               id="password"
               type="password"
               className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-600"
-              placeholder={t('signin.password')}
+              placeholder={t('signup.password')}
               value={userInfo.password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setUserInfo({ ...userInfo, password: e.target.value })
@@ -104,7 +104,7 @@ const UserSignUp: React.FC = () => {
               id="confirmpassword"
               type="password"
               className="w-full px-4 py-2 mt-2 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-600"
-              placeholder={t('signin.confirmpassword')}
+              placeholder={t('signup.confirmpassword')}
               value={userInfo.confirmPassword}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setUserInfo({ ...userInfo, confirmPassword: e.target.value })
@@ -116,7 +116,7 @@ const UserSignUp: React.FC = () => {
             type="submit"
             className="w-full px-4 py-2 mt-6 font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:bg-red-700"
           >
-            {t('signin.register')}
+            {t('signup.signup')}
           </button>
         </form>
         {/* <div className="mt-6">
@@ -124,7 +124,7 @@ const UserSignUp: React.FC = () => {
             onClick={handleGoogleSignIn}
             className="flex items-center justify-center w-full px-4 py-2 text-sm font-semibold text-gray-700 bg-white border rounded-lg hover:bg-gray-100 focus:outline-none"
           >
-            {t('signin.signin')}
+            {t('signup.signup')}
           </button>
         </div> */}
       </div>

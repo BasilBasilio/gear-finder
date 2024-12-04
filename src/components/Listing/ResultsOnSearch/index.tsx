@@ -1,5 +1,5 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { InsertionData } from '../InsertionData';
+import { ListingData } from '../ListingData';
 import { algoliaClient } from './algoliaConfig';
 import { useQuery } from '@tanstack/react-query';
 import Loading from 'react-loading';
@@ -13,31 +13,31 @@ const Results: React.FC = () => {
   const query = searchParams.get('query');
   const navigate = useNavigate();
 
-  const getInsertions = async () => {
+  const getListings = async () => {
     try {
       const searchKey = query ?? '';
-      const res = await algoliaClient.searchForHits<InsertionData>({
+      const res = await algoliaClient.searchForHits<ListingData>({
         requests: [
           {
-            indexName: 'insertions',
+            indexName: 'listings',
             query: searchKey,
           },
         ],
       });
-      const insertions = res.results[0].hits;
-      return insertions;
+      const listings = res.results[0].hits;
+      return listings;
     } catch (error) {
-      console.error('Error fetching insertions:', error);
+      console.error('Error fetching listings:', error);
     }
   };
 
-  const { data: insertions, isLoading } = useQuery({
-    queryFn: getInsertions,
-    queryKey: ['insertions', 'byQuery', query],
+  const { data: listings, isLoading } = useQuery({
+    queryFn: getListings,
+    queryKey: ['listings', 'byQuery', query],
   });
 
   const handleClick = (id: string) => {
-    navigate(`/insertion/${id}`);
+    navigate(`/listing/${id}`);
   };
 
   return isLoading ? (
@@ -58,20 +58,18 @@ const Results: React.FC = () => {
               disableDefaultUI={true}
               mapId={'a4a8b5c05baf8337'}
             >
-              {insertions?.map(insertion => (
+              {listings?.map(listing => (
                 <AdvancedMarker
-                  key={insertion.objectID}
-                  onClick={() => handleClick(insertion.objectID)}
+                  key={listing.objectID}
+                  onClick={() => handleClick(listing.objectID)}
                   position={{
-                    lat: insertion.location?.lat,
-                    lng: insertion.location?.lng,
+                    lat: listing.location?.lat,
+                    lng: listing.location?.lng,
                   }}
                 >
                   <img
                     className="rounded-full border-2 border-black w-12 h-12 object-cover"
-                    src={
-                      insertion.imageUrls ? insertion.imageUrls[0] : undefined
-                    }
+                    src={listing.imageUrls ? listing.imageUrls[0] : undefined}
                     width={50}
                     height={50}
                   />

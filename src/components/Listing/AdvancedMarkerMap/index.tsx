@@ -1,7 +1,7 @@
 import { APIProvider, AdvancedMarker, Map } from '@vis.gl/react-google-maps';
 import { useUserAuth } from '../../../context/userAuthContext';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { InsertionData } from '../InsertionData';
+import { ListingData } from '../ListingData';
 import { db } from '../../../firebaseConfig';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
@@ -15,31 +15,31 @@ const AdvancedMarkerMap: React.FC = () => {
   const getData = async (userId: string) => {
     try {
       const q = query(
-        collection(db, 'insertions'),
+        collection(db, 'listings'),
         where('userId', '==', userId),
       );
       const querySnapshot = await getDocs(q);
-      const insertions = querySnapshot.docs.map(doc => {
+      const listings = querySnapshot.docs.map(doc => {
         const docData = doc.data();
         return {
           id: doc.id,
           ...docData,
-        } as InsertionData;
+        } as ListingData;
       });
 
-      return insertions;
+      return listings;
     } catch (error) {
       console.error('Error fetching documents:', error);
     }
   };
 
-  const { data: insertions } = useQuery({
+  const { data: listings } = useQuery({
     queryFn: () => getData(user?.uid || ''),
-    queryKey: ['insertions', 'byUser', user?.uid],
+    queryKey: ['listings', 'byUser', user?.uid],
   });
 
   const handleClick = (id: string) => {
-    navigate(`/insertion/${id}`);
+    navigate(`/listings/${id}`);
   };
 
   return (
@@ -55,18 +55,18 @@ const AdvancedMarkerMap: React.FC = () => {
             disableDefaultUI={true}
             mapId={'a4a8b5c05baf8337'}
           >
-            {insertions?.map(insertion => (
+            {listings?.map(listing => (
               <AdvancedMarker
-                key={insertion.id}
-                onClick={() => handleClick(insertion.id)}
+                key={listing.id}
+                onClick={() => handleClick(listing.id)}
                 position={{
-                  lat: insertion.location?.lat,
-                  lng: insertion.location?.lng,
+                  lat: listing.location?.lat,
+                  lng: listing.location?.lng,
                 }}
               >
                 <img
                   className="rounded-full border-2 border-black w-12 h-12 object-cover"
-                  src={insertion.imageUrls ? insertion.imageUrls[0] : undefined}
+                  src={listing.imageUrls ? listing.imageUrls[0] : undefined}
                   width={50}
                   height={50}
                 />

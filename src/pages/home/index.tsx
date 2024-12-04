@@ -1,5 +1,5 @@
-import SearchBar from '../../components/Insertion/SearchBar';
-import AdvancedMarkerMap from '../../components/Insertion/AdvancedMarkerMap';
+import SearchBar from '../../components/Listing/SearchBar';
+import AdvancedMarkerMap from '../../components/Listing/AdvancedMarkerMap';
 
 const Home: React.FC = () => {
   return (

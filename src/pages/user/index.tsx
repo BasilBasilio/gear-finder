@@ -1,7 +1,7 @@
-import InsertionDisplay from '../../components/Insertion/InsertionDisplayOnUserPage';
+import ListingDisplay from '../../components/Listing/ListingDisplayOnUserPage';
 
 const UserProfile: React.FC = () => {
-  return <InsertionDisplay />;
+  return <ListingDisplay />;
 };
 
 export default UserProfile;
