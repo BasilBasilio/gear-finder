@@ -42,6 +42,8 @@
   },
 
   "listing": {
+    "nolisting": "No listings uploaded yet!",
+    "userlisting": "Your listings",
     "price": "Day",
     "create": "Create new listing",
     "update": "Update listing",
@@ -73,5 +75,12 @@
     "guitarCabinet": "Guitar Cabinet",
     "bassCabinet": "Bass Cabinet",
     "synth": "Synth"
+  },
+
+  "toast": {
+    "saved": "Listing saved successfully!",
+    "updated": "Listing updated successfully!",
+    "error": "Failed to add the listing",
+    "deleted": "Listing successfully deleted"
   }
 }
