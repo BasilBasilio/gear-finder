@@ -11,6 +11,7 @@ import { MdDelete } from 'react-icons/md';
 import { IoArrowBack } from 'react-icons/io5';
 import { BsFillPencilFill } from 'react-icons/bs';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 
 const ListingDetail: React.FC = () => {
   const user = useUserAuth();
@@ -29,18 +30,17 @@ const ListingDetail: React.FC = () => {
   };
 
   const deleteData = async (objectId: string) => {
-    try {
-      const listingRef = doc(db, `listings/${objectId}`);
-      await deleteDoc(listingRef);
-    } catch (error) {
-      console.error('Error fetching documents:', error);
-    }
+    const listingRef = doc(db, `listings/${objectId}`);
+    toast.promise(() => deleteDoc(listingRef), {
+      loading: 'Loading...',
+      success: t('toast.deleted'),
+      error: t('toast.error'),
+    });
   };
 
   const deleteListing = useMutation({
     mutationFn: () => deleteData(objectId || ''),
     onSuccess: () => {
-      alert('Listing deleted!');
       navigate('/');
     },
     onError: error => {

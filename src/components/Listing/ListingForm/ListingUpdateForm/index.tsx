@@ -5,11 +5,12 @@ import { doc, getDoc, Timestamp, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../../../../firebaseConfig';
 import { useRef, useState } from 'react';
 import { useUserAuth } from '../../../../context/userAuthContext';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import ReactQuill from 'react-quill';
 import { useTranslation } from 'react-i18next';
 import GooglePlacesAutocompleteComponent from '../GooglePlacesAutocompleteComponent';
+import { toast } from 'sonner';
 
 const ListingUpdateForm: React.FC = () => {
   const { register, handleSubmit, setValue } = useForm<ListingData>();
@@ -19,6 +20,7 @@ const ListingUpdateForm: React.FC = () => {
   const { objectId } = useParams();
   const [description, setDescription] = useState('');
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const modules = {
     toolbar: [
@@ -77,17 +79,21 @@ const ListingUpdateForm: React.FC = () => {
   };
 
   const updateListing = async (data: ListingData) => {
-    try {
-      const listingRef = doc(db, `listings/${objectId}`);
-      await updateDoc(listingRef, {
-        ...data,
-        userId: user?.uid,
-        createdAt: Timestamp.now(),
-      });
-      alert('Listing updated successfully');
-    } catch (error) {
-      console.error('Error: ', error);
-    }
+    const listingRef = doc(db, `listings/${objectId}`);
+    toast.promise(
+      () =>
+        updateDoc(listingRef, {
+          ...data,
+          userId: user?.uid,
+          createdAt: Timestamp.now(),
+        }),
+      {
+        loading: 'Loading...',
+        success: t('toast.updated'),
+        error: t('toast.error'),
+      },
+    );
+    navigate('/');
   };
 
   const handleProcedureContentChange = (description: string) => {
@@ -275,12 +281,14 @@ const ListingUpdateForm: React.FC = () => {
             onChange={handleProcedureContentChange}
           />
         </div>
-        <button
-          type="submit"
-          className="w-full bg-green-600 text-white font-semibold py-2 rounded-md hover:bg-green-700"
-        >
-          {t('listing.updateListing')}
-        </button>
+        <div>
+          <button
+            type="submit"
+            className="w-full bg-green-600 text-white font-semibold py-2 rounded-md hover:bg-green-700"
+          >
+            {t('listing.updateListing')}
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -9,6 +9,8 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useTranslation } from 'react-i18next';
 import GooglePlacesAutocompleteComponent from '../GooglePlacesAutocompleteComponent';
+import { useNavigate } from 'react-router';
+import { toast } from 'sonner';
 
 const ListingForm: React.FC = () => {
   const { register, handleSubmit, setValue } = useForm<ListingData>();
@@ -17,6 +19,7 @@ const ListingForm: React.FC = () => {
   const user = useUserAuth();
   const [description, setDescription] = useState('');
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const modules = {
     toolbar: [
@@ -51,7 +54,6 @@ const ListingForm: React.FC = () => {
   const uploadFiles = async (files: File[]): Promise<string[]> => {
     const uploadPromises = files.map(async file => {
       const storageRef = ref(storage, `images/${file.name}`);
-
       try {
         await uploadBytes(storageRef, file);
         return await getDownloadURL(storageRef);
@@ -69,17 +71,21 @@ const ListingForm: React.FC = () => {
   };
 
   const addListing = async (data: ListingData) => {
-    try {
-      await addDoc(collection(db, 'listings'), {
-        ...data,
-        description: description,
-        userId: user?.uid,
-        createdAt: Timestamp.now(),
-      });
-      alert('Listing saved successfully');
-    } catch (error) {
-      console.error('Error: ', error);
-    }
+    toast.promise(
+      () =>
+        addDoc(collection(db, 'listings'), {
+          ...data,
+          description: description,
+          userId: user?.uid,
+          createdAt: Timestamp.now(),
+        }),
+      {
+        loading: 'Loading...',
+        success: t('toast.saved'),
+        error: t('toast.error'),
+      },
+    );
+    navigate('/');
   };
 
   const onSubmit: SubmitHandler<ListingData> = async data => {
@@ -255,12 +261,14 @@ const ListingForm: React.FC = () => {
             onChange={handleProcedureContentChange}
           />
         </div>
-        <button
-          type="submit"
-          className="w-full bg-red-600 text-white font-semibold py-2 rounded-md hover:bg-red-700"
-        >
-          {t('listing.save')}
-        </button>
+        <div>
+          <button
+            type="submit"
+            className="w-full bg-red-600 text-white font-semibold py-2 rounded-md hover:bg-red-700"
+          >
+            {t('listing.save')}
+          </button>
+        </div>
       </form>
     </div>
   );

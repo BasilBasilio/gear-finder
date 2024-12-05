@@ -27,7 +27,6 @@ const ListingDisplay: React.FC = () => {
           ...docData,
         } as ListingData;
       });
-
       return listings;
     } catch (error) {
       console.error('Error fetching documents:', error);
@@ -39,16 +38,30 @@ const ListingDisplay: React.FC = () => {
     queryKey: ['listings', 'byUser', user?.uid],
   });
 
-  console.log(listings);
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center mt-20">
+        <Loading type="bars" color="#e9222a" height={30} width={30} />
+      </div>
+    );
+  }
 
-  return isLoading ? (
-    <div className="flex items-center justify-center mt-20">
-      <Loading type="bars" color="#e9222a" height={30} width={30} />
-    </div>
-  ) : (
-    <div className="max-w-3xl mx-auto mt-20 p-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900">Your listings</h1>
+  if (!listings || listings.length === 0) {
+    return (
+      <div className="flex items-center justify-center mt-24">
+        <h1 className="text-2xl font-bold text-gray-900">
+          {t('listing.nolisting')}
+        </h1>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-3xl mt-20 p-6">
+      <div className="flex items-center">
+        <h1 className="text-2xl font-bold text-gray-900">
+          {t('listing.userlisting')}
+        </h1>
         <div className="flex items-center justify-end"></div>
       </div>
 
